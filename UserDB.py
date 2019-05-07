@@ -58,6 +58,23 @@ class Receptionist:
         db.createDatabase()
         db.insert(username, password, firstname, lastname, email)
         db.displayDB()
+        
+        
+def login(self):
+        userName = input("Insert Your User Name: ")
+        Pass = input ("Insert Your Password: ")
+        connection = lite.connect(self._databaseName)
+        with connection:
+            point = connection.cursor()
+            point.execute("SELECT username from user_data where username=(?)",(userName,))
+            # for row in point.execute("SELECT username from user_data where username=(?)",(userName,)):
+            #     print(row,userName)
+            if(point.fetchone()[0] == userName):
+            #if (user is not None ):
+                print  ("You Are Logged in")
+
+        
 
 re= Receptionist()
 re.register()
+re.login()
