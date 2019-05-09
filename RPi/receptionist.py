@@ -7,6 +7,7 @@ import re
 
 class Receptionist:
     __name_regex = re.compile(r'^[A-Za-z]*$')
+    __userName_regex = re.compile(r'^[A-Za-z0-9]*$')
     __db = UserDB()
     __secure = Security()
 
@@ -15,7 +16,7 @@ class Receptionist:
         while True:
             username = input("Insert your UserName Please: ")
 
-            if self.__db.isExist(username) is not True and self.__name_regex.match(username):
+            if self.__db.isExist(username) is not True and self.__userName_regex.match(username):
                 username.lower()
                 break
             print("Sorry the username is exist.")
@@ -67,7 +68,7 @@ class Receptionist:
             self.__db = UserDB()
             while True:
                 userName = input("Insert Your User Name: ")
-                if self.__name_regex.match(userName):
+                if self.__userName_regex.match(userName):
                     break
             password = getpass.getpass("Insert Your Password: ")
             if self.__db.isExist(userName) is False:
