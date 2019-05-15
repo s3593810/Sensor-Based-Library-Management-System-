@@ -50,6 +50,18 @@ class UserDB(DataBase):
                 print(row)
         connection.close()
 
+    def isVaildUsername_Pass(self, username, password):
+        connection = lite.connect(self._databaseName)
+        with connection:
+            point = connection.cursor()
+            point.execute(
+                "SELECT count(*) from user_data where username=(?) and password=(?)", (username, password))
+            result = point.fetchone()[0]
+            if result > 0:
+                return True
+        connection.close()
+        return False
+
     def get_Pass(self, username):
         connection = lite.connect(self._databaseName)
         with connection:
@@ -58,10 +70,6 @@ class UserDB(DataBase):
                 "SELECT password from user_data where username=(?)", (username,))
             
             result = point.fetchone()
-            # if result is None:
-            #     return None
-            # else:
-            #     result=point.fetchone()[0]
         connection.close()
         return result
 
@@ -70,9 +78,10 @@ class UserDB(DataBase):
         with connection:
             point = connection.cursor()
             point.execute(
-                "SELECT firstname, lastname from user_data where username=(?)", (username,))
-            result = point.fetchall()
-            return result
+                "SELECT username, firstname, lastname from user_data where username=(?)", (username,))
+            result = point.fetchone()
+        connection.close()
+        return { "username": result[0], "firstname": result[1], "lastname": result[2]  }
 
     def isExist(self, username):
         connection = lite.connect(self._databaseName)
