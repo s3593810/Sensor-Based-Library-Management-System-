@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 from receptionist import Receptionist
 import sys
-import RPi
+from RPi import ReceptionPi
+from userDB import UserDB
 from FacialRecognition_Drive import FaceRecognition_Drive
 
 
@@ -9,6 +10,7 @@ class App:
     def menu():
         re = Receptionist()
         drive = FaceRecognition_Drive()
+        receptionPi = ReceptionPi()
         print("""
     =====================================================
     *          *                    *       *  *  *       
@@ -34,10 +36,11 @@ class App:
             elif choice == '2':
                 name = re.login()
                 if name is not False:
-                    RPi.login(name)
+                    receptionPi.login(name)
+
             elif choice == '3':
                 data = drive.face_Recognation()
-                RPi.login(data)
+                receptionPi.login(name)
             elif choice == '4':
                 sys.exit()
             else:
