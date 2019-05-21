@@ -7,13 +7,13 @@ from validation import Validation
 
 
 class Receptionist:
-    
+
     __db = UserDB()
     __secure = Security()
-    __valid= Validation()
+    __valid = Validation()
 
     def register(self):
-        
+
         while True:
             username = input("Insert your UserName Please: ")
 
@@ -24,7 +24,7 @@ class Receptionist:
             print("Please choose another username")
         while True:
             password = getpass.getpass("Insert your Password Please: ")
-            confirmPassword = getpass.getpass("Confierm you Password : ")
+            confirmPassword = getpass.getpass("Confirm your Password : ")
             if self.__valid.passwordValidation(password) is False:
                 continue
             elif self.__valid.passwordMaching(password, confirmPassword):
@@ -36,15 +36,13 @@ class Receptionist:
             lastname = str(input("Insert your Last Name Please: "))
             if self.__valid.name_regex.match(firstname) and self.__valid.name_regex.match(lastname):
                 break
-            print("You should enter only letters")
+            print("You should enter letters only")
         while True:
             email = input("Insert Your Email Please: ")
             if self.__valid.email_regex.match(email):
                 break
-            print("you should enter a vaild email")
+            print("you should enter a vaild email address")
         user = User(username, password, firstname, lastname, email)
-
-        self.__db.createDatabase()
         self.__db.insert(username, password, firstname, lastname, email)
         self.__db.displayDB()
 
@@ -53,7 +51,7 @@ class Receptionist:
         while True:
             self.__db = UserDB()
             while True:
-                userName = input("Insert Your User Name: ")
+                userName = input("Insert Your UserName: ")
                 if self.__valid.userName_regex.match(userName):
                     break
             password = getpass.getpass("Insert Your Password: ")
