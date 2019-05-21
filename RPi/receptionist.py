@@ -7,13 +7,46 @@ from validation import Validation
 
 
 class Receptionist:
+    """
+    Receptionist class used to represent an reception py functionality of user registration and login.
 
+    ...
+
+    Objects
+    ----------
+    __db : 
+        Object created for UserDB class naming __db as protected object.   
+    __secure : 
+        Object created for the Security class naming __secure as protected object.   
+    __valid :
+        Object  created for the validation class naming __valid as protected object.   
+
+    Methods
+    -------
+    register
+        Lets a new user to register an account with valid user name, password, Proper name, email.
+
+    login
+        Lets the existing user login to the system using valid user id and password. 
+
+    
+    """
     __db = UserDB()
     __secure = Security()
     __valid = Validation()
 
     def register(self):
+        """
+        This method takes in user information as username, password and asks to user to confirm the password
+        if the user name exists already in the system it asks to choose another username.
+        Then the password gets checked if its a valid one or not as well as the inserted password matching the 
+        confirmation password. If the password does not match the confirmation password it shows messege as password does not match.
+        Further it prompts the user for first name, last name, email id and then user object gets created using User method of the UserDB class
+        and get those all user inserted data as parameters.
 
+        Using the methods of the UserDB class the database gets created, the overall data gets inserted as well in this method. 
+
+        """
         while True:
             username = input("Insert your UserName Please: ")
 
@@ -47,6 +80,10 @@ class Receptionist:
         self.__db.displayDB()
 
     def login(self):
+        """
+        This method asks user for user name and password and checks if the user name and password exists in the database
+        if it finds the existing match it lets the user login the system.
+        """
         count = 0
         while True:
             self.__db = UserDB()
