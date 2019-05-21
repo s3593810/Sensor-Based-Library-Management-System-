@@ -11,7 +11,24 @@ sys.path.append("..")
 
 
 class ReceptionPi:
+    """
+    A class used to represent pi as client
+
+    ...
+
+    Methods
+    -------
+    login(user)
+        It acts as a client and waits for the response from
+        the server based on user response.
+    """
     def login(self, user):
+        """
+        Parameters
+        -------
+        user : str
+            takes in user information through the socket.
+        """
         socket_utils = Socket_utils()
         with open("config.json", "r") as file:
             data = json.load(file)
@@ -36,8 +53,29 @@ class ReceptionPi:
 
 
 class Socket_utils:
+    """
+    This class maintains socket relations between the client and the server.
 
+    ...
+
+    Methods
+    -------
+    sendJson(socket, object)
+        sends socket info and object.
+
+    recvJson(socket)
+        receieves socket info sent.
+    
+    """
     def sendJson(socket, object):
+        """
+        Parameters
+        -------
+        socket : str
+            takes in user information through the socket.
+        object :
+
+        """
         jsonString = json.dumps(object)
         data = jsonString.encode("utf-8")
         jsonLength = struct.pack("!i", len(data))
@@ -45,6 +83,13 @@ class Socket_utils:
         socket.sendall(data)
 
     def recvJson(socket):
+        """
+        Parameters
+        -------
+        socket : str
+            takes in user information through the socket.
+
+        """
         buffer = socket.recv(4)
         jsonLength = struct.unpack("!i", buffer)[0]
 
