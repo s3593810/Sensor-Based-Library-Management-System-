@@ -31,8 +31,8 @@ class FaceRecognition:
     recognise()
         Recognises the known faces.
 
-
     """
+    
     def capture(self):
         """
 
