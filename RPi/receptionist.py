@@ -1,4 +1,4 @@
-from userDB import UserDB
+from UserDB import UserDB
 from user import User
 import getpass
 from security import Security
@@ -29,7 +29,7 @@ class Receptionist:
     login
         Lets the existing user login to the system using valid user id and password. 
 
-    
+
     """
     __db = UserDB()
     __secure = Security()

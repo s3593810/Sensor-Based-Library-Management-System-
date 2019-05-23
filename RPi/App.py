@@ -7,6 +7,19 @@ from FacialRecognition_Drive import FaceRecognition_Drive
 
 
 class App:
+    """
+    This class shows the Library Management System
+    Menu options as well as ensures basic functionalities.
+
+    ...
+
+    Methods
+    -------
+    menu()
+        This method shows and runs the main functionalities 
+        of the Library Managment System consol application.
+
+    """
     def menu():
         re = Receptionist()
         drive = FaceRecognition_Drive()

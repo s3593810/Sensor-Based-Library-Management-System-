@@ -14,7 +14,30 @@ import os
 import imutils
 import time
 class FaceRecognition:
+    """ 
+    This class comprises of functionalities to recognise a persons face 
+    and helps registering and log into the system using facial recognition techniques.
+    
+    Methods
+    -------
+    capture()
+        Captures image using mounted camera and saves it to directory to later on 
+        recognize based on that.
+
+    encode()
+        Loads the known faces and embeddings. add each encoding and name to our set
+        of known names and encodings.
+
+    recognise()
+        Recognises the known faces.
+
+    """
+    
     def capture(self):
+        """
+
+
+        """
         print("You are not registered")
         firstname = input("enter your first name: ")
         lastname = input("enter your last name: ")

@@ -10,6 +10,7 @@ getDetails = SamInsert()
 
 class Menu:
     """
+
   
     
     Methods
@@ -23,6 +24,7 @@ class Menu:
     """
     drive=MasterDrive()
     def runMenu(self, user):
+
         while(True):
             print(user)
             print("1. Search a Book")
