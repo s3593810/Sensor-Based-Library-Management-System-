@@ -5,6 +5,7 @@ from MasterMenu import Menu
 import socket
 import json
 import sys
+import struct
 sys.path.append("..")
 
 
@@ -39,14 +40,14 @@ class MasterPi:
 
 class Socket_utils:
 
-    def sendJson(socket, object):
+    def sendJson(self,socket, object):
         jsonString = json.dumps(object)
         data = jsonString.encode("utf-8")
         jsonLength = struct.pack("!i", len(data))
         socket.sendall(jsonLength)
         socket.sendall(data)
 
-    def recvJson(socket):
+    def recvJson(self,socket):
         buffer = socket.recv(4)
         jsonLength = struct.unpack("!i", buffer)[0]
 
