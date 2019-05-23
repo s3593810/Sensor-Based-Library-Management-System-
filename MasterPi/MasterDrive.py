@@ -96,10 +96,19 @@ class MasterDrive:
             elif(selection == "2"):
                 return 1
 
-        
-           
+    def insertUser(self, user):
+        if self.isExist(user["username"])==False:
+            with self.connection.cursor() as cursor:
+                cursor.execute("insert into LmsUser (UserName, FirstName,LastName) values (%s,%s,%s)", (user["username"],user["firstname"],user["lastname"],))
+            self.connection.commit()   
 
-       
+    def isExist(self, username):
+        with self.connection.cursor() as cursor:
+            cursor.execute("SELECT count(UserName) FROM LmsUser WHERE UserName=%s", (username,))
+            result = cursor.fetchone()[0]
+            if result > 0:
+                return True
+        return False        
 
     def BorrowBook(self):
         print("--------------Borrow Book---------------")
