@@ -22,8 +22,27 @@ if(not creds or creds.invalid):
     flow = client.flow_from_clientsecrets("credentials.json", SCOPES)
     creds = tools.run_flow(flow, store)
 service = build("calendar", "v3", http=creds.authorize(Http()))
+
 class Add_event:
-        
+
+    """
+    This class helps creating google calender events upon
+    borrowing a book from the library and removes the event 
+    upon returning it.
+    ...
+
+    Methods
+    -------
+    list_events()
+        This method shows all the events in google calender.
+    
+    insert(name , bookid, status , date, book, lmsid)
+        This method helps creating an event upon reciving
+        the parameters as name, bookid, status, date, book and lmdid.
+
+
+    """
+     
     def list_event(self):
         """
         Shows basic usage of the Google Calendar API.
@@ -44,6 +63,22 @@ class Add_event:
             print(start)
 
     def insert(self, name , bookid, status , date, book, lmsid):
+        """
+        name: str
+            persons name.
+        bookid: int
+            id number of the book.
+        status: str
+            Current status of the book.
+        date: str
+            Date the book was taken
+        
+        book: str
+            name of the book.
+        lmsid: int
+            Auto generated id.
+
+        """
         print(date)
         print(book[0][0])
         #boo = book.fetchone()
