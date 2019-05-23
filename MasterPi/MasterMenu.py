@@ -26,7 +26,8 @@ class Menu:
     def runMenu(self, user):
 
         while(True):
-            print(user)
+            print("Welcome {}".format(user["firstname"]))
+            self.drive.insertUser(user)
             print("1. Search a Book")
             print("2. Borrow a Book")
             print("3. Return a Book")

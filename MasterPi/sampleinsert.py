@@ -56,10 +56,10 @@ class SamInsert:
 
     """
 
-    HOST = "35.189.19.149"
+    HOST = "35.201.25.216"
     USER = "root"
-    PASSWORD = "Sami9305"
-    DATABASE = "lms"
+    PASSWORD = ""
+    DATABASE = "LMS"
 
     
     def __init__(self, connection = None):
@@ -78,9 +78,9 @@ class SamInsert:
         self.close()
 
 
-    def insertUser(self, name, nick):
+    def insertUser(self, UserName, fName,lName):
         with self.connection.cursor() as cursor:
-            cursor.execute("insert into LmsUser (UserName,Name) values (%s,%s)", (name,nick,))
+            cursor.execute("insert into LmsUser (UserName,FirstName,LastName) values (%s,%s,%s)", (UserName,fName,lName,))
         self.connection.commit()
 
     def insertBook(self, name, author, time):
@@ -91,7 +91,7 @@ class SamInsert:
 
     def getPeople(self):
         with self.connection.cursor() as cursor:
-            cursor.execute("select UserName, Name from LmsUser")
+            cursor.execute("select UserName, FirstName, LastName from LmsUser")
             return cursor.fetchall()
 
     def getPerson(self, id):

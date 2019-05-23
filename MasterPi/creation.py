@@ -41,10 +41,10 @@ class LMScreation:
         to monitor which book is borrowed by whom and when.
 
     """
-    HOST = "35.189.19.149"
+    HOST = "35.201.25.216"
     USER = "root"
-    PASSWORD = "Sami9305"
-    DATABASE = "lms"
+    PASSWORD = ""
+    DATABASE = "LMS"
 
     def __init__(self, connection = None):
         
@@ -72,7 +72,9 @@ class LMScreation:
             
             cursor.execute("""
                 create table LmsUser (LmsUserID int not null auto_increment,
-                    UserName nvarchar(256) not null,Name text not null,
+                    UserName nvarchar(256) not null,
+                    FirstName text not null,
+                    LastName text not null,
                     constraint PK_LmsUser primary key (LmsUserID),
                     constraint UN_UserName unique (UserName)
                 )""")
@@ -108,5 +110,8 @@ class LMScreation:
 
     
     
-
+create=LMScreation()
+create.createLMSuserTable()
+create.createbookTable()
+create.createBookborrowedTable()
 
