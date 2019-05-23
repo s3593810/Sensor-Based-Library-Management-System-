@@ -8,7 +8,59 @@ event = Add_event()
 getDetails = SamInsert()
 
 class Menu:
+    """
+    This class shows the cloud managment and database 
+    functionalities.
 
+    
+    Attributes
+    ----------
+
+    HOST
+        IP address of the Host device.
+    USER
+        UserName for the Cloud database.
+    PASSWORD
+        Password for the cloud database.
+    DATABASE
+        Name of the database already created in cloud.
+        
+    Methods
+    -------
+    __init__(connection=None)
+        Checks on the connection and selects cursor 
+        cleans up the database if there is already tables exist.
+
+    runMenu()
+        Prints out all the master py menu options 
+        for user to select.
+
+    listPeople()
+        Gives user search options to search a book by different criteria.
+
+    BorrowBook()
+        Handles the functionality of borrowing books 
+        from the existing books list table.
+    
+    ReturnBook()
+        Handles the functionality of a book being returned.
+    
+    SearchID()
+        Adds search functionality by book id.
+    
+    SearchTitle()
+        Adds search functionality for book by books title.
+    
+    SearchAuthor()
+        Adds search functionality for books by authors name.
+    
+    SearchDate()
+        Adds search functionality for users by particular date. 
+
+    SearchbyQRCode()
+        Adds functionality so that user can scan qr code to search or return a book.
+
+    """
     HOST = "35.189.19.149"
     USER = "root"
     PASSWORD = "Sami9305"
