@@ -1,6 +1,6 @@
 # AES 256 encryption/decryption using pycrypto library
 # Reference:https://www.quickprogrammingtips.com/python/aes-256-encryption-and-decryption-in-python.html 
-# That for learning perpuses
+# That for learning purposes
  
 import base64
 import hashlib
