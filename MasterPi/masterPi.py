@@ -10,7 +10,30 @@ sys.path.append("..")
 
 
 class MasterPi:
+    """
+    This class shows the connection through socket programming between
+    master pi and reception pi.
 
+    
+    Attributes
+    ----------
+
+    HOST
+        IP address of the Host device.
+    PORT
+        Port to listen on (non-privileged ports are > 1023).
+    ADDRESS
+        Address is the combination of the host ip and port number.
+        
+    Methods
+    -------
+
+    Main()
+        Lets master py act as a listener for the reception pi.
+        Maintains connectivity between master pi and reception pi using
+        particular sockets.
+
+    """
     # Empty string means to listen on all IP's on the machine, also works with IPv6.
     HOST = ""
     # Note "0.0.0.0" also works but only with IPv4.
@@ -39,7 +62,21 @@ class MasterPi:
 
 
 class Socket_utils:
+    """
+    This class shows the connection through socket programming between
+    master pi and reception pi.
 
+    Methods
+    -------
+
+    sendJson()
+        Lets master py and reception py act through particular
+        socket and pass object between then using json.
+
+    recvJson()
+        Receives objects through socket.
+
+    """
     def sendJson(self,socket, object):
         jsonString = json.dumps(object)
         data = jsonString.encode("utf-8")
