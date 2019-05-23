@@ -1,12 +1,53 @@
 import MySQLdb
 
 class LMScreation:
+    """
+    This class shows the cloud managment and database 
+    functionalities.
+
+    
+    Attributes
+    ----------
+
+    HOST
+        IP address of the Host device.
+    USER
+        UserName for the Cloud database.
+    PASSWORD
+        Password for the cloud database.
+    DATABASE
+        Name of the database already created in cloud.
+        
+    Methods
+    -------
+    __init__(connection=None)
+        Checks on the connection and selects cursor 
+        cleans up the database if there is already tables exist.
+
+    close()
+        Closes the connection.
+    __enter__()
+
+    __exit__()
+
+    createLMSuserTable()
+        Creates LMS User table in the cloud database.
+
+    createbookTable()
+        Creates book table in the cloud database.
+
+    createBookborrowedTable()
+        Creates books borrowed table in cloud database
+        to monitor which book is borrowed by whom and when.
+
+    """
     HOST = "35.189.19.149"
     USER = "root"
     PASSWORD = "Sami9305"
     DATABASE = "lms"
 
     def __init__(self, connection = None):
+        
         if(connection == None):
             connection = MySQLdb.connect(LMScreation.HOST, LMScreation.USER,
                 LMScreation.PASSWORD, LMScreation.DATABASE)
