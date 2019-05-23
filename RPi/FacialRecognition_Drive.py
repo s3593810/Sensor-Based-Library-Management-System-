@@ -1,12 +1,12 @@
 from faceRecognition import FaceRecognition
-from userDB import UserDB
+from UserDB import UserDB
 
 
 class FaceRecognition_Drive:
     """ 
     This class comprises of functionalities to recognise a persons face 
     and helps registering and log into the system using facial recognition techniques.
-    
+
     Objects
     -------
     faceRecognation 

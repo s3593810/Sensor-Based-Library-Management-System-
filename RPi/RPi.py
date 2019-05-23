@@ -67,7 +67,7 @@ class Socket_utils:
         receieves socket info sent.
     
     """
-    def sendJson(socket, object):
+    def sendJson(self,socket, object):
         """
         Parameters
         -------
@@ -82,7 +82,7 @@ class Socket_utils:
         socket.sendall(jsonLength)
         socket.sendall(data)
 
-    def recvJson(socket):
+    def recvJson(self,socket):
         """
         Parameters
         -------
