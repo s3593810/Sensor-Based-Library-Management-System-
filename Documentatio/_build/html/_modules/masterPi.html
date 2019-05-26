@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>masterPi &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>masterPi</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for masterPi</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># Documentation: https://docs.python.org/3/library/socket.html</span>
+<span class="c1"># from MasterMenu import Menu</span>
+<span class="kn">from</span> <span class="nn">MasterMenu</span> <span class="k">import</span> <span class="n">Menu</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="MasterPi"><a class="viewcode-back" href="../masterPi.html#masterPi.MasterPi">[docs]</a><span class="k">class</span> <span class="nc">MasterPi</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class shows the connection through socket programming between</span>
+<span class="sd">    master pi and reception pi.</span>
+
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    HOST</span>
+<span class="sd">        IP address of the Host device.</span>
+<span class="sd">    PORT</span>
+<span class="sd">        Port to listen on (non-privileged ports are &gt; 1023).</span>
+<span class="sd">    ADDRESS</span>
+<span class="sd">        Address is the combination of the host ip and port number.</span>
+<span class="sd">        </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    Main()</span>
+<span class="sd">        Lets master py act as a listener for the reception pi.</span>
+<span class="sd">        Maintains connectivity between master pi and reception pi using</span>
+<span class="sd">        particular sockets.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Empty string means to listen on all IP&#39;s on the machine, also works with IPv6.</span>
+    <span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1"># Note &quot;0.0.0.0&quot; also works but only with IPv4.</span>
+    <span class="n">PORT</span> <span class="o">=</span> <span class="mi">65000</span>  <span class="c1"># Port to listen on (non-privileged ports are &gt; 1023).</span>
+    <span class="n">ADDRESS</span> <span class="o">=</span> <span class="p">(</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MasterPi.main"><a class="viewcode-back" href="../masterPi.html#masterPi.MasterPi.main">[docs]</a>    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">menu</span> <span class="o">=</span> <span class="n">Menu</span><span class="p">()</span>
+        <span class="n">socket_utils</span> <span class="o">=</span> <span class="n">Socket_utils</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ADDRESS</span><span class="p">)</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening on </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ADDRESS</span><span class="p">))</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Waiting for Reception Pi...&quot;</span><span class="p">)</span>
+                <span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                <span class="k">with</span> <span class="n">conn</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connected to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">addr</span><span class="p">))</span>
+                    <span class="nb">print</span><span class="p">()</span>
+
+                    <span class="n">user</span> <span class="o">=</span> <span class="n">socket_utils</span><span class="o">.</span><span class="n">recvJson</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+                    <span class="n">menu</span><span class="o">.</span><span class="n">runMenu</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+                    <span class="n">socket_utils</span><span class="o">.</span><span class="n">sendJson</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;logout&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="Socket_utils"><a class="viewcode-back" href="../masterPi.html#masterPi.Socket_utils">[docs]</a><span class="k">class</span> <span class="nc">Socket_utils</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class shows the connection through socket programming between</span>
+<span class="sd">    master pi and reception pi.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    sendJson()</span>
+<span class="sd">        Lets master py and reception py act through particular</span>
+<span class="sd">        socket and pass object between then using json.</span>
+
+<span class="sd">    recvJson()</span>
+<span class="sd">        Receives objects through socket.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Socket_utils.sendJson"><a class="viewcode-back" href="../masterPi.html#masterPi.Socket_utils.sendJson">[docs]</a>    <span class="k">def</span> <span class="nf">sendJson</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">socket</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="n">jsonString</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">jsonString</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">jsonLength</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;!i&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">jsonLength</span><span class="p">)</span>
+        <span class="n">socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Socket_utils.recvJson"><a class="viewcode-back" href="../masterPi.html#masterPi.Socket_utils.recvJson">[docs]</a>    <span class="k">def</span> <span class="nf">recvJson</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">socket</span><span class="p">):</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">jsonLength</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;!i&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Reference: https://stackoverflow.com/a/15964489/9798310</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">jsonLength</span><span class="p">)</span>
+        <span class="n">view</span> <span class="o">=</span> <span class="nb">memoryview</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">jsonLength</span><span class="p">:</span>
+            <span class="n">nbytes</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">jsonLength</span><span class="p">)</span>
+            <span class="n">view</span> <span class="o">=</span> <span class="n">view</span><span class="p">[</span><span class="n">nbytes</span><span class="p">:]</span>
+            <span class="n">jsonLength</span> <span class="o">-=</span> <span class="n">nbytes</span>
+
+        <span class="n">jsonString</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">jsonString</span><span class="p">)</span></div></div>
+
+
+<span class="c1"># Execute program.</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">MasterPi</span><span class="p">()</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                masterPi
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>sampleinsert module &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="index.html" />
+    <link rel="up" title="Master_Pi" href="MasterPy.html" />
+    <link rel="next" title="speechRecognition module" href="speechRecognition.html" />
+    <link rel="prev" title="QRCodeScanner module" href="QRCodeScanner.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>sampleinsert module</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="py-modindex.html" title="Python Module Index" >modules</a></div>
+            <div class="headerButton"><a href="speechRecognition.html" title="speechRecognition module" accesskey="N">next</a></div>
+            <div class="headerButton"><a href="QRCodeScanner.html" title="QRCodeScanner module" accesskey="P">previous</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="MasterPy.html">Master_Pi</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="add_event.html">add_event module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creation.html">creation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MasterDrive.html">MasterDrive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MasterMenu.html">MasterMenu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masterPi.html">masterPi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QRCodeScanner.html">QRCodeScanner module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sampleinsert module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speechRecognition.html">speechRecognition module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+      <h3>This Page</h3>
+      <ul class="this-page-menu">
+        <li><a href="_sources/sampleinsert.rst.txt"
+               rel="nofollow">Show Source</a></li>
+      </ul>
+    <div id="searchbox" style="display: none">
+        <form class="search" action="search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-sampleinsert">
+<span id="sampleinsert-module"></span><h1>sampleinsert module<a class="headerlink" href="#module-sampleinsert" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sampleinsert.SamInsert">
+<em class="property">class </em><code class="descclassname">sampleinsert.</code><code class="descname">SamInsert</code><span class="sig-paren">(</span><em>connection=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sampleinsert.html#SamInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sampleinsert.SamInsert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class shows the cloud managment and database 
+functionalities.</p>
+<dl class="simple">
+<dt>HOST</dt><dd><p>IP address of the Host device.</p>
+</dd>
+<dt>USER</dt><dd><p>UserName for the Cloud database.</p>
+</dd>
+<dt>PASSWORD</dt><dd><p>Password for the cloud database.</p>
+</dd>
+<dt>DATABASE</dt><dd><p>Name of the database already created in cloud.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>__init__(connection=None)</dt><dd><p>Checks on the connection and selects cursor 
+cleans up the database if there is already tables exist.</p>
+</dd>
+<dt>close()</dt><dd><p>Closes the connection.</p>
+</dd>
+</dl>
+<p>__enter__()</p>
+<p>__exit__()</p>
+<dl class="simple">
+<dt>insertUser(name, nick)</dt><dd><p>Creates a user for LMS User table in the cloud database
+based on the given username and name of the user.</p>
+</dd>
+<dt>insertBook(name, author, time)</dt><dd><p>Creates a book based on provided title, author name of the 
+book and the time in book table in the cloud database.</p>
+</dd>
+<dt>getPeople()</dt><dd><p>This method helps getting the username and name of the user 
+from the LMS User table.</p>
+</dd>
+<dt>getPerson(id)</dt><dd><p>This method helps getting the username and name from lms user table
+based on provided users id.</p>
+</dd>
+<dt>getBook(id)</dt><dd><p>This method helps getting the book information from book table
+based on provided book id.</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="sampleinsert.SamInsert.HOST">
+<code class="descname">HOST</code><em class="property"> = '35.201.25.216'</em><a class="headerlink" href="#sampleinsert.SamInsert.HOST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sampleinsert.SamInsert.USER">
+<code class="descname">USER</code><em class="property"> = 'root'</em><a class="headerlink" href="#sampleinsert.SamInsert.USER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sampleinsert.SamInsert.PASSWORD">
+<code class="descname">PASSWORD</code><em class="property"> = ''</em><a class="headerlink" href="#sampleinsert.SamInsert.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sampleinsert.SamInsert.DATABASE">
+<code class="descname">DATABASE</code><em class="property"> = 'LMS'</em><a class="headerlink" href="#sampleinsert.SamInsert.DATABASE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sampleinsert.SamInsert.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sampleinsert.html#SamInsert.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sampleinsert.SamInsert.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sampleinsert.SamInsert.insertUser">
+<code class="descname">insertUser</code><span class="sig-paren">(</span><em>UserName</em>, <em>fName</em>, <em>lName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sampleinsert.html#SamInsert.insertUser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sampleinsert.SamInsert.insertUser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sampleinsert.SamInsert.insertBook">
+<code class="descname">insertBook</code><span class="sig-paren">(</span><em>name</em>, <em>author</em>, <em>time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sampleinsert.html#SamInsert.insertBook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sampleinsert.SamInsert.insertBook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sampleinsert.SamInsert.getPeople">
+<code class="descname">getPeople</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sampleinsert.html#SamInsert.getPeople"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sampleinsert.SamInsert.getPeople" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sampleinsert.SamInsert.getPerson">
+<code class="descname">getPerson</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sampleinsert.html#SamInsert.getPerson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sampleinsert.SamInsert.getPerson" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sampleinsert.SamInsert.getBook">
+<code class="descname">getBook</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sampleinsert.html#SamInsert.getBook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sampleinsert.SamInsert.getBook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="MasterPy.html" accesskey="U">Master_Pi</a><img src="_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                sampleinsert module
+        </div>
+        <script type="text/javascript" charset="utf-8" src="_static/js/toc.js"></script>
+  </body>
+</html>

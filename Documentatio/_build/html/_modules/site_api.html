@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>site_api &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>site_api</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for site_api</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span><span class="n">Flask</span><span class="p">,</span> <span class="n">flash</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">abort</span>
+<span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="k">import</span> <span class="n">SQLAlchemy</span>
+<span class="kn">from</span> <span class="nn">flask_marshmallow</span> <span class="k">import</span> <span class="n">Marshmallow</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This site_api class inegrates the api with the site view</span>
+<span class="sd">and helps geeting, posting and delating functions through api calls wiythin in </span>
+<span class="sd">the cloud thus acts as the client for the site.</span>
+
+<span class="sd">Methods</span>
+<span class="sd">-------</span>
+
+<span class="sd">index()</span>
+<span class="sd">    it srats up based on the index template.</span>
+<span class="sd">    It starts as landing site with basic functional</span>
+<span class="sd">    features in the site.</span>
+
+<span class="sd">do_admin_login()</span>
+<span class="sd">    Admin login functionalities through api get and post requests</span>
+<span class="sd">    as user types in user name and password thus it posts the request to </span>
+<span class="sd">    the api for login and the api checks the user name and password with the </span>
+<span class="sd">    existing database thus it gets api results.</span>
+<span class="sd">    </span>
+<span class="sd">dashboard()</span>
+<span class="sd">    This method opens app the dashbord site view based on rendering template</span>
+<span class="sd">    dashboard.html.</span>
+<span class="sd">report()</span>
+<span class="sd">    This method helps getting the response ass all the books in the database </span>
+<span class="sd">    as rendered site as report.html.</span>
+<span class="sd">addmenu()</span>
+<span class="sd">    Allows user to type in book information through the site to add a book</span>
+<span class="sd">    through the api calls to the cloud database.</span>
+<span class="sd">delete()</span>
+<span class="sd">    Using restful api calls this method allows user to delate </span>
+<span class="sd">    a book from cloud database based on users action on the site. </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="s1">&#39;super secret key&#39;</span>
+
+<span class="c1"># Client webpage.</span>
+<div class="viewcode-block" id="index"><a class="viewcode-back" href="../site_api.html#site_api.index">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="do_admin_login"><a class="viewcode-back" href="../site_api.html#site_api.do_admin_login">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">do_admin_login</span><span class="p">():</span>
+    
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;hghar&#39;</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;jaqen&#39;</span><span class="p">:</span>
+        
+        <span class="n">session</span><span class="p">[</span><span class="s1">&#39;logged_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;dashboard&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">flash</span><span class="p">(</span><span class="s1">&#39;wrong password!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="dashboard"><a class="viewcode-back" href="../site_api.html#site_api.dashboard">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/dashboard&#39;</span><span class="p">,</span>  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">dashboard</span><span class="p">():</span>
+	<span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;dashboard.html&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="report"><a class="viewcode-back" href="../site_api.html#site_api.report">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/getreport&#39;</span><span class="p">,</span>  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">report</span><span class="p">():</span>
+    <span class="c1"># Use REST API.</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://localhost:5000/api/book&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;getreport.html&quot;</span><span class="p">,</span> <span class="n">book</span> <span class="o">=</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="addmenu"><a class="viewcode-back" href="../site_api.html#site_api.addmenu">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/addbooks&#39;</span><span class="p">,</span>  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">addmenu</span><span class="p">():</span>
+    <span class="c1"># Use REST API.</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;addbook.html&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="delete"><a class="viewcode-back" href="../site_api.html#site_api.delete">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/removebooks&#39;</span><span class="p">,</span>  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">delete</span><span class="p">():</span>
+    <span class="c1"># Use REST API.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hi im deleting&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;deletebook.html&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="bookadd"><a class="viewcode-back" href="../site_api.html#site_api.bookadd">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/added&#39;</span><span class="p">,</span>  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">bookadd</span><span class="p">():</span>
+    <span class="c1"># Use REST API.</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;Number of Copies&#39;</span><span class="p">])):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Author&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;Author&#39;</span><span class="p">],</span>
+                    <span class="s2">&quot;PublishedDate&quot;</span><span class="p">:</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;PublishedDate&#39;</span><span class="p">],</span> 
+                    <span class="s2">&quot;Title&quot;</span><span class="p">:</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span>
+                    <span class="p">}</span> 
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="c1"># sending post request and saving response as response object </span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:5000/api/book&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span> <span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> 
+    
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;dashboard&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="bookdelete"><a class="viewcode-back" href="../site_api.html#site_api.bookdelete">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/delete&#39;</span><span class="p">,</span>  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">bookdelete</span><span class="p">():</span>
+    <span class="c1"># Use REST API.</span>
+    
+    <span class="n">bookid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;BookID&#39;</span><span class="p">]</span>
+<span class="c1"># sending post request and saving response as response object </span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:5000/api/book/&quot;</span><span class="o">+</span><span class="n">bookid</span><span class="p">)</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;dashboard&#39;</span><span class="p">))</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    
+
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span><span class="s2">&quot;5050&quot;</span><span class="p">,</span><span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                site_api
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

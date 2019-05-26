@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>MasterDrive &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>MasterDrive</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for MasterDrive</h1><div class="highlight"><pre>
+<span></span><span class="c1"># import MySQLdb</span>
+<span class="c1"># from sampleinsert import SamInsert</span>
+<span class="c1"># from add_event import Add_event</span>
+<span class="c1"># from QRCodeScanner import QRCodeReader</span>
+<span class="c1"># from speechRecognition import SpeechRecognition</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+
+<span class="n">event</span> <span class="o">=</span> <span class="s2">&quot;Add_event()&quot;</span>
+<span class="n">getDetails</span> <span class="o">=</span> <span class="s2">&quot;SamInsert()&quot;</span>
+
+<div class="viewcode-block" id="MasterDrive"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive">[docs]</a><span class="k">class</span> <span class="nc">MasterDrive</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class shows the cloud managment and database </span>
+<span class="sd">    functionalities.</span>
+
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    HOST</span>
+<span class="sd">        IP address of the Host device.</span>
+<span class="sd">    USER</span>
+<span class="sd">        UserName for the Cloud database.</span>
+<span class="sd">    PASSWORD</span>
+<span class="sd">        Password for the cloud database.</span>
+<span class="sd">    DATABASE</span>
+<span class="sd">        Name of the database already created in cloud.</span>
+<span class="sd">        </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    __init__(connection=None)</span>
+<span class="sd">        Checks on the connection and selects cursor </span>
+<span class="sd">        cleans up the database if there is already tables exist.</span>
+
+
+<span class="sd">    search()</span>
+<span class="sd">        Gives user search options to search a book by different criteria.</span>
+
+<span class="sd">    BorrowBook()</span>
+<span class="sd">        Handles the functionality of borrowing books </span>
+<span class="sd">        from the existing books list table.</span>
+<span class="sd">    </span>
+<span class="sd">    ReturnBook()</span>
+<span class="sd">        Handles the functionality of a book being returned.</span>
+<span class="sd">    </span>
+<span class="sd">    SearchID()</span>
+<span class="sd">        Adds search functionality by book id.</span>
+<span class="sd">    </span>
+<span class="sd">    SearchTitle()</span>
+<span class="sd">        Adds search functionality for book by books title.</span>
+<span class="sd">    </span>
+<span class="sd">    SearchAuthor()</span>
+<span class="sd">        Adds search functionality for books by authors name.</span>
+<span class="sd">    </span>
+<span class="sd">    SearchDate()</span>
+<span class="sd">        Adds search functionality for users by particular date. </span>
+
+<span class="sd">    SearchbyQRCode()</span>
+<span class="sd">        Adds functionality so that user can scan qr code to search or return a book.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;35.201.25.216&quot;</span>
+    <span class="n">USER</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+    <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">DATABASE</span> <span class="o">=</span> <span class="s2">&quot;LMS&quot;</span>
+    <span class="n">qrCode</span><span class="o">=</span><span class="s2">&quot;QRCodeReader()&quot;</span>
+    <span class="n">speechRecognition</span><span class="o">=</span><span class="s2">&quot;SpeechRecognition()&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">connection</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">connection</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;MySQLdb.connect(MasterDrive.HOST, MasterDrive.USER,</span>
+<span class="s2">                MasterDrive.PASSWORD, MasterDrive.DATABASE)&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
+
+    
+
+    
+<div class="viewcode-block" id="MasterDrive.searchOptions"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.searchOptions">[docs]</a>    <span class="k">def</span> <span class="nf">searchOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">==</span><span class="s2">&quot;1&quot;</span><span class="p">:</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1.Search using keyboard&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2.Search using QR code&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3.Search by speech recognition&quot;</span><span class="p">)</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select an option: &quot;</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">selection</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the search key :&quot;</span><span class="p">)</span>
+            <span class="k">elif</span><span class="p">(</span><span class="n">selection</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qrCode</span><span class="o">.</span><span class="n">readCode</span><span class="p">()</span> 
+            <span class="k">elif</span><span class="p">(</span><span class="n">selection</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">speechRecognition</span><span class="o">.</span><span class="n">getKeyToSearch</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1.Search using keyboard&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2.Search by speech recognition&quot;</span><span class="p">)</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select an option: &quot;</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">selection</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the search key :&quot;</span><span class="p">)</span>
+            <span class="k">elif</span><span class="p">(</span><span class="n">selection</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">speechRecognition</span><span class="o">.</span><span class="n">getKeyToSearch</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MasterDrive.insertUser"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.insertUser">[docs]</a>    <span class="k">def</span> <span class="nf">insertUser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isExist</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">])</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;insert into LmsUser (UserName, FirstName,LastName) values (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">],</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;firstname&quot;</span><span class="p">],</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;lastname&quot;</span><span class="p">],))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>   </div>
+
+<div class="viewcode-block" id="MasterDrive.isExist"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.isExist">[docs]</a>    <span class="k">def</span> <span class="nf">isExist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT count(UserName) FROM LmsUser WHERE UserName=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">username</span><span class="p">,))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>        </div>
+
+<div class="viewcode-block" id="MasterDrive.BorrowBook"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.BorrowBook">[docs]</a>    <span class="k">def</span> <span class="nf">BorrowBook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------Borrow Book---------------&quot;</span><span class="p">)</span>
+        <span class="n">bookid</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the Book ID &quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT count(bookid) FROM Book WHERE BookID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">bookid</span><span class="p">,))</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT Status FROM BookBorrowed WHERE BookID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">bookid</span><span class="p">,))</span>
+                
+                <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;returned&quot;</span><span class="p">):</span>
+                    <span class="n">userid</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># have to change</span>
+                    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+                    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;insert into BookBorrowed (LmsUserID,BookID,Status,BorrowedDate,ReturnedDate) values (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">userid</span><span class="p">,</span><span class="n">bookid</span><span class="p">,</span><span class="s2">&quot;borrowed&quot;</span><span class="p">,</span><span class="n">date</span><span class="p">,</span><span class="kc">None</span><span class="p">))</span>
+                        <span class="n">name</span> <span class="o">=</span> <span class="n">getDetails</span><span class="o">.</span><span class="n">getPerson</span><span class="p">(</span><span class="n">userid</span><span class="p">)</span>
+                        <span class="n">book</span> <span class="o">=</span> <span class="n">getDetails</span><span class="o">.</span><span class="n">getBook</span><span class="p">(</span><span class="n">bookid</span><span class="p">)</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;UPDATE BookBorrowed SET Status = </span><span class="si">%s</span><span class="s2"> , ReturnedDate = </span><span class="si">%s</span><span class="s2"> WHERE BookID= </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,(</span><span class="s2">&quot;borrowed&quot;</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">bookid</span><span class="p">))</span>
+                        <span class="n">event</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">bookid</span><span class="p">,</span> <span class="s2">&quot;borrowed&quot;</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">userid</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Book has been Borrowed ! &quot;</span><span class="p">)</span>
+                <span class="k">elif</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;borrowed&quot;</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sorry Book has been already taken ! &quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="MasterDrive.ReturnBook"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.ReturnBook">[docs]</a>    <span class="k">def</span> <span class="nf">ReturnBook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------Return Book---------------&quot;</span><span class="p">)</span>
+        <span class="n">bookid</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the Book ID &quot;</span><span class="p">)</span>
+        <span class="n">borroweddate</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the Borrowed Date in YY - MM - DD = &quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT count(bookid) FROM Book WHERE BookID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">bookid</span><span class="p">))</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT Status FROM BookBorrowed WHERE BookID=</span><span class="si">%s</span><span class="s2"> and BorrowedDate = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">bookid</span><span class="p">,</span><span class="n">borroweddate</span><span class="p">,))</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;returned&quot;</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This Book is not Borrowed ! &quot;</span><span class="p">)</span>
+                <span class="k">elif</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;borrowed&quot;</span><span class="p">):</span>
+                    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+                    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;UPDATE BookBorrowed SET Status = </span><span class="si">%s</span><span class="s2"> , ReturnedDate = </span><span class="si">%s</span><span class="s2"> WHERE BookID= </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,(</span><span class="s2">&quot;returned&quot;</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">bookid</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Book has been returned ! &quot;</span><span class="p">)</span></div>
+        <span class="c1"># with self.connection.cursor() as cursor:</span>
+        <span class="c1">#     cursor.execute(&quot;select * from BookBorrowed&quot;)</span>
+        <span class="c1">#     print( cursor.fetchall())</span>
+
+
+<div class="viewcode-block" id="MasterDrive.SearchID"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.SearchID">[docs]</a>    <span class="k">def</span> <span class="nf">SearchID</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bookid</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM Book WHERE BookID=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">bookid</span><span class="p">,))</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BOOK ID = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;| TITLE = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| AUTHOR = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| PUBLISHED_DATE = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span></div>
+    
+<div class="viewcode-block" id="MasterDrive.SearchTitle"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.SearchTitle">[docs]</a>    <span class="k">def</span> <span class="nf">SearchTitle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">book_name</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM Book WHERE title=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">book_name</span><span class="p">,))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;asds&quot;</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BOOK ID = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;| TITLE = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| AUTHOR = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| PUBLISHED_DATE = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span></div>
+
+
+
+<div class="viewcode-block" id="MasterDrive.SearchAuthor"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.SearchAuthor">[docs]</a>    <span class="k">def</span> <span class="nf">SearchAuthor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">book_title</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM Book WHERE Author=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">book_title</span><span class="p">,))</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BOOK ID = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;| TITLE = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| AUTHOR = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| PUBLISHED_DATE = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span></div>
+    
+<div class="viewcode-block" id="MasterDrive.SearchDate"><a class="viewcode-back" href="../MasterDrive.html#MasterDrive.MasterDrive.SearchDate">[docs]</a>    <span class="k">def</span> <span class="nf">SearchDate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">book_date</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM Book WHERE PublishedDate=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">book_date</span><span class="p">,))</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BOOK ID = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;| TITLE = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| AUTHOR = &quot;</span><span class="o">+</span><span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;| PUBLISHED_DATE = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span></div></div>
+
+
+
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                MasterDrive
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>
