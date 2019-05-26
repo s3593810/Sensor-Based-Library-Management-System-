@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>speechRecognition module &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="index.html" />
+    <link rel="up" title="Master_Pi" href="MasterPy.html" />
+    <link rel="next" title="Reception_Pi" href="ReceptionPy.html" />
+    <link rel="prev" title="sampleinsert module" href="sampleinsert.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>speechRecognition module</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="py-modindex.html" title="Python Module Index" >modules</a></div>
+            <div class="headerButton"><a href="ReceptionPy.html" title="Reception_Pi" accesskey="N">next</a></div>
+            <div class="headerButton"><a href="sampleinsert.html" title="sampleinsert module" accesskey="P">previous</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="MasterPy.html">Master_Pi</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="add_event.html">add_event module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creation.html">creation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MasterDrive.html">MasterDrive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MasterMenu.html">MasterMenu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masterPi.html">masterPi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QRCodeScanner.html">QRCodeScanner module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampleinsert.html">sampleinsert module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">speechRecognition module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+      <h3>This Page</h3>
+      <ul class="this-page-menu">
+        <li><a href="_sources/speechRecognition.rst.txt"
+               rel="nofollow">Show Source</a></li>
+      </ul>
+    <div id="searchbox" style="display: none">
+        <form class="search" action="search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-speechRecognition">
+<span id="speechrecognition-module"></span><h1>speechRecognition module<a class="headerlink" href="#module-speechRecognition" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="speechRecognition.SpeechRecognition">
+<em class="property">class </em><code class="descclassname">speechRecognition.</code><code class="descname">SpeechRecognition</code><a class="reference internal" href="_modules/speechRecognition.html#SpeechRecognition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speechRecognition.SpeechRecognition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class helps recognising users voice to run further Library 
+functionalities.</p>
+<dl class="simple">
+<dt>MIC_NAME: Str</dt><dd><p>Hard Coded to identify particular Mic device to take voice inputs.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>main()</dt><dd><p>Takes in voice input to search based on the inputed voice.</p>
+</dd>
+<dt>getKeyToSearch()</dt><dd><p>Takes in voice input and runs it to check and convert in to speech using 
+googles voice recognition feature and return it as key.</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="speechRecognition.SpeechRecognition.MIC_NAME">
+<code class="descname">MIC_NAME</code><em class="property"> = 'Microsoft® LifeCam Cinema(TM): USB Audio (hw:1,0)'</em><a class="headerlink" href="#speechRecognition.SpeechRecognition.MIC_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="speechRecognition.SpeechRecognition.main">
+<code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/speechRecognition.html#SpeechRecognition.main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speechRecognition.SpeechRecognition.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="speechRecognition.SpeechRecognition.getKeyToSearch">
+<code class="descname">getKeyToSearch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/speechRecognition.html#SpeechRecognition.getKeyToSearch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speechRecognition.SpeechRecognition.getKeyToSearch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="MasterPy.html" accesskey="U">Master_Pi</a><img src="_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                speechRecognition module
+        </div>
+        <script type="text/javascript" charset="utf-8" src="_static/js/toc.js"></script>
+  </body>
+</html>

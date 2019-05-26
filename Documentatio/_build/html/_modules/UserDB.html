@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>UserDB &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>UserDB</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for UserDB</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span> <span class="k">as</span> <span class="nn">lite</span>
+<span class="kn">from</span> <span class="nn">pytz</span> <span class="k">import</span> <span class="n">timezone</span>
+
+
+<div class="viewcode-block" id="DataBase"><a class="viewcode-back" href="../UserDB.html#UserDB.DataBase">[docs]</a><span class="k">class</span> <span class="nc">DataBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DataBase class is an abstract class to create the abstract behaviors which is common in different scenarios.</span>
+<span class="sd">    ...</span>
+
+<span class="sd">    Attribute</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _localTime : </span>
+<span class="sd">        This attribute takes in local time of Australia in a particular format.   </span>
+<span class="sd">    _databaseName : </span>
+<span class="sd">        attribute created for the UserDB class naming _databaseName as private as the databaseName should remain the same and should not be </span>
+<span class="sd">        allowed to change every now and then.   </span>
+<span class="sd">   </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    createDatabase</span>
+<span class="sd">        Abstract Method</span>
+
+<span class="sd">    insert</span>
+<span class="sd">        Abstract Method </span>
+<span class="sd">    </span>
+<span class="sd">    displayDB</span>
+<span class="sd">        Abstract Method</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_localTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span>
+    <span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Australia/Sydney&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+    <span class="n">_databaseName</span> <span class="o">=</span> <span class="s1">&#39;user.db&#39;</span>
+    <span class="c1">#   @abstractmethod</span>
+
+<div class="viewcode-block" id="DataBase.createDatabase"><a class="viewcode-back" href="../UserDB.html#UserDB.DataBase.createDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">createDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+<span class="c1">#   @abstractmethod</span>
+
+<div class="viewcode-block" id="DataBase.insert"><a class="viewcode-back" href="../UserDB.html#UserDB.DataBase.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+<span class="c1">#   @abstractmethod</span>
+
+<div class="viewcode-block" id="DataBase.displayDB"><a class="viewcode-back" href="../UserDB.html#UserDB.DataBase.displayDB">[docs]</a>    <span class="k">def</span> <span class="nf">displayDB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+    
+
+<div class="viewcode-block" id="UserDB"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB">[docs]</a><span class="k">class</span> <span class="nc">UserDB</span><span class="p">(</span><span class="n">DataBase</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    UserDB class is a child class of abstract class DataBase class to implement the behaviors of the abstract methods in the abstract class</span>
+<span class="sd">    also with some additiontial behaviors thrugh different added methods as checking if user exists in the database, if the password is correct, getting </span>
+<span class="sd">    all user information from the database. </span>
+<span class="sd">    ...</span>
+
+<span class="sd">    Attribute</span>
+<span class="sd">    ----------</span>
+<span class="sd">    It does not have an attribute it only contains methods as it is ensuring the implementation of the abstract methods.  </span>
+<span class="sd">   </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    createDatabase</span>
+<span class="sd">        Creates a table named user_data in the database to hold user data.</span>
+
+<span class="sd">    insert(username, password, firstname, lastname, email)</span>
+<span class="sd">        Lets user insert the data in the table as username, password, firstname, lastname, email</span>
+<span class="sd">    </span>
+<span class="sd">    displayDB</span>
+<span class="sd">        Lets user print out all the data in the user_data table. </span>
+<span class="sd">    </span>
+<span class="sd">    isVaildUsername_Pass(username, password)</span>
+<span class="sd">        This method checking if the user name and password is valid or not.</span>
+
+<span class="sd">    get_Pass(username)</span>
+<span class="sd">        Gets out password from the table passing username.</span>
+
+<span class="sd">    getUserInformation(username)</span>
+<span class="sd">        This method returns user information from the database table using username.</span>
+<span class="sd">    </span>
+<span class="sd">    isExist(username)</span>
+<span class="sd">        This method checks on the users existance in the system based on provided username.</span>
+
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;creates database constructor&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">createDatabase</span><span class="p">()</span>
+
+<div class="viewcode-block" id="UserDB.createDatabase"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB.createDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">createDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method helps creating user_data table in the database&quot;&quot;&quot;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_databaseName</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;CREATE TABLE IF NOT EXISTS user_data(timestamp DATETIME, username VARCHAR(20), password VARCHAR(20), firstname VARCHAR(30), lastname VARCHAR(30), email VARCHAR(50))&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UserDB.insert"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">firstname</span><span class="p">,</span> <span class="n">lastname</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method enters the data in the database table.&quot;&quot;&quot;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_databaseName</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;INSERT INTO user_data values((?), (?), (?), (?), (?), (?))&quot;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_localTime</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">firstname</span><span class="p">,</span> <span class="n">lastname</span><span class="p">,</span> <span class="n">email</span><span class="p">,))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UserDB.displayDB"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB.displayDB">[docs]</a>    <span class="k">def</span> <span class="nf">displayDB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method shows all the data from the database tables.&quot;&quot;&quot;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_databaseName</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Entire database contents:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">point</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM user_data&quot;</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UserDB.isVaildUsername_Pass"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB.isVaildUsername_Pass">[docs]</a>    <span class="k">def</span> <span class="nf">isVaildUsername_Pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method shows if the user name and password exits in the database or not</span>
+<span class="sd">        based on given username and password by the user.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        username: str</span>
+<span class="sd">            The selected username inserted by a particular user duirng </span>
+<span class="sd">            registration.</span>
+<span class="sd">        password: str</span>
+<span class="sd">            The selected password inserted by a particular user during </span>
+<span class="sd">            registration to varify users existance in the system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_databaseName</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT count(*) from user_data where username=(?) and password=(?)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="UserDB.get_Pass"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB.get_Pass">[docs]</a>    <span class="k">def</span> <span class="nf">get_Pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method tries to get password based on users provided username.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        username: str</span>
+<span class="sd">            The selected username inserted by a particular user duirng </span>
+<span class="sd">            registration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_databaseName</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT password from user_data where username=(?)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">username</span><span class="p">,))</span>
+            
+            <span class="n">result</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="UserDB.getUserInformation"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB.getUserInformation">[docs]</a>    <span class="k">def</span> <span class="nf">getUserInformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method returns userinformation from the database table</span>
+<span class="sd">        based on users provided username.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        username: str</span>
+<span class="sd">            The selected username inserted by a particular user duirng </span>
+<span class="sd">            registration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_databaseName</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT username, firstname, lastname from user_data where username=(?)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">username</span><span class="p">,))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span> <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;firstname&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;lastname&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="p">}</span></div>
+
+<div class="viewcode-block" id="UserDB.isExist"><a class="viewcode-back" href="../UserDB.html#UserDB.UserDB.isExist">[docs]</a>    <span class="k">def</span> <span class="nf">isExist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method shows if the user name exits in the database or not</span>
+<span class="sd">        based on given username by the user.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        username: str</span>
+<span class="sd">            The selected username inserted by a particular user duirng </span>
+<span class="sd">            registration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_databaseName</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT count(*) from user_data where username=(?)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">username</span><span class="p">,))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                UserDB
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

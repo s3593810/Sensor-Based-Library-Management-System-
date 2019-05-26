@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>add_event &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>add_event</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for add_event</h1><div class="highlight"><pre>
+<span></span><span class="c1"># pip3 install google-api-python-client google-auth-httplib2 google-auth-oauthlib oauth2client httplib2</span>
+<span class="c1"># python3 add_event.py --noauth_local_webserver</span>
+
+<span class="c1"># Reference: https://developers.google.com/calendar/quickstart/python</span>
+<span class="c1"># Documentation: https://developers.google.com/calendar/overview</span>
+
+<span class="c1"># Be sure to enable the Google Calendar API on your Google account by following the reference link above and</span>
+<span class="c1"># download the credentials.json file and place it in the same directory as this file.</span>
+
+<span class="c1"># from __future__ import print_function</span>
+<span class="c1"># from datetime import datetime</span>
+<span class="c1"># from datetime import timedelta</span>
+<span class="c1"># from googleapiclient.discovery import build</span>
+<span class="c1"># from httplib2 import Http</span>
+<span class="c1"># from oauth2client import file, client, tools</span>
+
+<span class="c1"># If modifying these scopes, delete the file token.json.</span>
+<span class="n">SCOPES</span> <span class="o">=</span> <span class="s2">&quot;https://www.googleapis.com/auth/calendar&quot;</span>
+<span class="c1"># store = file.Storage(&quot;token.json&quot;)</span>
+<span class="c1"># creds = store.get()</span>
+<span class="c1"># if(not creds or creds.invalid):</span>
+<span class="c1">#     flow = client.flow_from_clientsecrets(&quot;credentials.json&quot;, SCOPES)</span>
+<span class="c1">#     creds = tools.run_flow(flow, store)</span>
+<span class="c1"># service = build(&quot;calendar&quot;, &quot;v3&quot;, http=creds.authorize(Http()))</span>
+
+<div class="viewcode-block" id="Add_event"><a class="viewcode-back" href="../add_event.html#add_event.Add_event">[docs]</a><span class="k">class</span> <span class="nc">Add_event</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class helps creating google calender events upon</span>
+<span class="sd">    borrowing a book from the library and removes the event </span>
+<span class="sd">    upon returning it.</span>
+<span class="sd">    ...</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    list_events()</span>
+<span class="sd">        This method shows all the events in google calender.</span>
+<span class="sd">    </span>
+<span class="sd">    insert(name , bookid, status , date, book, lmsid)</span>
+<span class="sd">        This method helps creating an event upon reciving</span>
+<span class="sd">        the parameters as name, bookid, status, date, book and lmdid.</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+     
+<div class="viewcode-block" id="Add_event.list_event"><a class="viewcode-back" href="../add_event.html#add_event.Add_event.list_event">[docs]</a>    <span class="k">def</span> <span class="nf">list_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shows basic usage of the Google Calendar API.</span>
+<span class="sd">        Prints the start and name of the next 10 events on the user&quot;s calendar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Call the Calendar API.</span>
+        <span class="c1"># now = datetime.utcnow().isoformat() + &quot;Z&quot; # &quot;Z&quot; indicates UTC time.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Getting the upcoming 10 events.&quot;</span><span class="p">)</span></div>
+        <span class="c1"># events_result = service.events().list(calendarId = &quot;primary&quot;, timeMin = now,</span>
+            <span class="c1"># maxResults = 10, singleEvents = True, orderBy = &quot;startTime&quot;).execute()</span>
+        <span class="c1"># events = events_result.get(&quot;items&quot;, [])</span>
+
+        <span class="c1"># if(not events):</span>
+            <span class="c1"># print(&quot;No upcoming events found.&quot;)</span>
+        <span class="c1"># for event in events:</span>
+            <span class="c1"># start = event[&quot;id&quot;].get()</span>
+            <span class="c1"># print(start)</span>
+
+<div class="viewcode-block" id="Add_event.insert"><a class="viewcode-back" href="../add_event.html#add_event.Add_event.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="p">,</span> <span class="n">bookid</span><span class="p">,</span> <span class="n">status</span> <span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">lmsid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        name: str</span>
+<span class="sd">            persons name.</span>
+<span class="sd">        bookid: int</span>
+<span class="sd">            id number of the book.</span>
+<span class="sd">        status: str</span>
+<span class="sd">            Current status of the book.</span>
+<span class="sd">        date: str</span>
+<span class="sd">            Date the book was taken</span>
+<span class="sd">        </span>
+<span class="sd">        book: str</span>
+<span class="sd">            name of the book.</span>
+<span class="sd">        lmsid: int</span>
+<span class="sd">            Auto generated id.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1">#boo = book.fetchone()</span>
+        <span class="c1"># borrow_date = datetime.strptime(date,&quot;%Y-%m-%d %H:%M:%S&quot;)</span>
+        <span class="c1"># print(borrow_date)</span>
+        <span class="c1"># return_date = (borrow_date + timedelta(days = 10)).strftime(&quot;%Y-%m-%d&quot;)</span>
+        <span class="c1"># print(return_date)</span>
+        <span class="n">borrow_date</span> <span class="o">=</span> <span class="n">borrow_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">borrow_date</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">name</span> <span class="p">)</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="s2">&quot;suneeth.g.s@gmail.com&quot;</span>
+        <span class="n">time_start</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">T06:00:00+10:00&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">borrow_date</span><span class="p">)</span>
+        <span class="c1"># time_end = &quot;{}T07:00:00+10:00&quot;.format(return_date)</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;As&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="n">book</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span><span class="n">book</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;State Library Victoria&quot;</span><span class="p">,</span>
+            <span class="c1"># &quot;description&quot;: &quot;Library - Book Borrowed - Return Date = &quot;+return_date,</span>
+            <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="c1"># &quot;dateTime&quot;: time_end,</span>
+                <span class="s2">&quot;timeZone&quot;</span><span class="p">:</span> <span class="s2">&quot;Australia/Melbourne&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;ogranizer&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">lmsid</span><span class="p">,</span>
+                <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span>
+                <span class="s2">&quot;displayName&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;self&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="c1"># &quot;dateTime&quot;: time_end,</span>
+                <span class="s2">&quot;timeZone&quot;</span><span class="p">:</span> <span class="s2">&quot;Australia/Melbourne&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;reminders&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;useDefault&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;overrides&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="s2">&quot;minutes&quot;</span><span class="p">:</span> <span class="mi">5</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;popup&quot;</span><span class="p">,</span> <span class="s2">&quot;minutes&quot;</span><span class="p">:</span> <span class="mi">10</span> <span class="p">},</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1"># event = service.events().insert(calendarId = &quot;primary&quot;, body = event).execute()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_event</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Event created: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;htmlLink&quot;</span><span class="p">)))</span></div></div>
+
+
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                add_event
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

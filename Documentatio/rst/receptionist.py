@@ -1,23 +1,25 @@
-
-from UserDB import UserDB
-
-import getpass
-from security import Security
-import re
-from validation import Validation
+# from UserDB import UserDB
+# from user import User
+# import getpass
+# from security import Security
+# import re
+# from validation import Validation
 
 
 class Receptionist:
     """
     Receptionist class used to represent an reception py functionality of user registration and login.
 
-    Objects:
-        __db : 
-            Object created for UserDB class naming __db as protected object.   
-        __secure : 
-            Object created for the Security class naming __secure as protected object.   
-        __valid :
-            Object  created for the validation class naming __valid as protected object.   
+    ...
+
+    Objects
+    ----------
+    __db : 
+        Object created for UserDB class naming __db as protected object.   
+    __secure : 
+        Object created for the Security class naming __secure as protected object.   
+    __valid :
+        Object  created for the validation class naming __valid as protected object.   
 
     Methods
     -------
@@ -27,11 +29,11 @@ class Receptionist:
     login
         Lets the existing user login to the system using valid user id and password. 
 
-    
+
     """
-    __db = UserDB()
-    __secure = Security()
-    __valid = Validation()
+    # __db = UserDB()
+    # __secure = Security()
+    # __valid = Validation()
 
     def register(self):
         """
@@ -54,8 +56,8 @@ class Receptionist:
             print("Sorry the username is exist.")
             print("Please choose another username")
         while True:
-            password = getpass.getpass("Insert your Password Please: ")
-            confirmPassword = getpass.getpass("Confirm your Password : ")
+            password = "getpass.getpass(Insert your Password Please: )"
+            confirmPassword = "getpass.getpass(Confirm your Password : )"
             if self.__valid.passwordValidation(password) is False:
                 continue
             elif self.__valid.passwordMaching(password, confirmPassword):
@@ -73,6 +75,7 @@ class Receptionist:
             if self.__valid.email_regex.match(email):
                 break
             print("you should enter a vaild email address")
+        user = "User(username, password, firstname, lastname, email)"
         self.__db.insert(username, password, firstname, lastname, email)
         self.__db.displayDB()
 
@@ -83,12 +86,12 @@ class Receptionist:
         """
         count = 0
         while True:
-            self.__db = UserDB()
+            self.__db = "UserDB()"
             while True:
                 userName = input("Insert Your UserName: ")
                 if self.__valid.userName_regex.match(userName):
                     break
-            password = getpass.getpass("Insert Your Password: ")
+            password = "getpass.getpass(Insert Your Password: )"
             if self.__db.isExist(userName) is False:
                 print(
                     "You are not registered you should register by choose 1 from the menu")

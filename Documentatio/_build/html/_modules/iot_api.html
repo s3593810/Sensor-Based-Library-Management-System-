@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>iot_api &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>iot_api</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for iot_api</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="k">import</span> <span class="n">SQLAlchemy</span>
+<span class="kn">from</span> <span class="nn">flask_marshmallow</span> <span class="k">import</span> <span class="n">Marshmallow</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">current_app</span> <span class="k">as</span> <span class="n">app</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">()</span>
+<span class="n">ma</span> <span class="o">=</span> <span class="n">Marshmallow</span><span class="p">()</span>
+
+<span class="c1"># Declaring the model.</span>
+<div class="viewcode-block" id="Book"><a class="viewcode-back" href="../iot_api.html#iot_api.Book">[docs]</a><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class loads in the data in the cloud database using api calls.</span>
+
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    BookID: int </span>
+<span class="sd">        Collumn for Auto Generated Book Id for each time a book is added.</span>
+<span class="sd">    Title: str</span>
+<span class="sd">        Collumn for user (LMS Admin) inserted Book titles.</span>
+<span class="sd">    Author: str</span>
+<span class="sd">        Collumn for User inserted Author Name of the book.</span>
+<span class="sd">    PublishedDate: DateTime</span>
+<span class="sd">        DateTime collumn to monitor the dates and times when </span>
+<span class="sd">        book is borrowed and returned.</span>
+<span class="sd">        </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    __init__(Title, Author, PublishedDate,BookID = None)</span>
+<span class="sd">        This method just initializes the values for the inserted collumns. </span>
+
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;Book&quot;</span>
+    <span class="n">BookID</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">Title</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
+    <span class="n">Author</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
+    <span class="n">PublishedDate</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DateTime</span><span class="p">)</span>
+    <span class="c1"># Username = db.Column(db.String(256), unique = True)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">Title</span><span class="p">,</span> <span class="n">Author</span><span class="p">,</span> <span class="n">PublishedDate</span><span class="p">,</span><span class="n">BookID</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BookID</span> <span class="o">=</span> <span class="n">BookID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="n">Title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Author</span> <span class="o">=</span> <span class="n">Author</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PublishedDate</span> <span class="o">=</span> <span class="n">PublishedDate</span></div>
+
+<div class="viewcode-block" id="BookSchema"><a class="viewcode-back" href="../iot_api.html#iot_api.BookSchema">[docs]</a><span class="k">class</span> <span class="nc">BookSchema</span><span class="p">(</span><span class="n">ma</span><span class="o">.</span><span class="n">Schema</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This calss takes in the fields for each books using nested class named meta</span>
+<span class="sd">    and calling the bookschema object the book information is saved. </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Reference: https://github.com/marshmallow-code/marshmallow/issues/377#issuecomment-261628415</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strict</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">strict</span> <span class="o">=</span> <span class="n">strict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="BookSchema.Meta"><a class="viewcode-back" href="../iot_api.html#iot_api.BookSchema.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="c1"># Fields to expose.</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;BookID&quot;</span><span class="p">,</span> <span class="s2">&quot;Title&quot;</span><span class="p">,</span><span class="s2">&quot;Author&quot;</span><span class="p">,</span><span class="s2">&quot;PublishedDate&quot;</span><span class="p">)</span></div></div>
+
+<span class="n">bookSchema</span> <span class="o">=</span> <span class="n">BookSchema</span><span class="p">()</span>
+<span class="n">booksSchema</span> <span class="o">=</span> <span class="n">BookSchema</span><span class="p">(</span><span class="n">many</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Declaring the model.</span>
+<div class="viewcode-block" id="BookBorrow"><a class="viewcode-back" href="../iot_api.html#iot_api.BookBorrow">[docs]</a><span class="k">class</span> <span class="nc">BookBorrow</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class setsup the modle for the borrow book api functions. </span>
+
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">   __tablename__:  str</span>
+<span class="sd">        Adds in the table named as BookBorrowed in the database.</span>
+<span class="sd">    LmsUserID: str</span>
+<span class="sd">        Collumn named LmsUserID gets created in the Bookborrowed table </span>
+<span class="sd">        so that each time a book is borrowed the user ID gets saved in the </span>
+<span class="sd">        database.</span>
+<span class="sd">    BookID: int</span>
+<span class="sd">        Collumn named BookID gets created in the table.</span>
+<span class="sd">    Status: str</span>
+<span class="sd">        Collumn named status gets created in the table</span>
+<span class="sd">        to store information about if the book is available to </span>
+<span class="sd">        borrow or not.</span>
+<span class="sd">    BorrowedDate: Date</span>
+<span class="sd">        Collumn gets added to store date for the bookborrowed.</span>
+<span class="sd">    ReturnDate: Date</span>
+<span class="sd">        Collumn is added to store the terun dates of the books been </span>
+<span class="sd">        borrowed already.</span>
+<span class="sd">    </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    __init__(LmsUserID, BookID, Status , BorrowedDate, ReturnedDate,BookBorrowedID = None)</span>
+<span class="sd">        This method initializes the values for the BookBorrowed table.</span>
+
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;BookBorrowed&quot;</span>
+    <span class="n">BookBorrowedID</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">LmsUserID</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
+    <span class="n">BookID</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
+    <span class="n">Status</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DateTime</span><span class="p">)</span>
+    <span class="n">BorrowedDate</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DateTime</span><span class="p">)</span>
+    <span class="n">ReturnedDate</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DateTime</span><span class="p">)</span>
+    <span class="n">EventID</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DateTime</span><span class="p">)</span>
+    <span class="c1"># Username = db.Column(db.String(256), unique = True)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">LmsUserID</span><span class="p">,</span> <span class="n">BookID</span><span class="p">,</span> <span class="n">Status</span> <span class="p">,</span> <span class="n">BorrowedDate</span><span class="p">,</span> <span class="n">ReturnedDate</span><span class="p">,</span><span class="n">BookBorrowedID</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LmsUserID</span> <span class="o">=</span> <span class="n">LmsUserID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BookID</span> <span class="o">=</span> <span class="n">BookID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="n">Status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BorrowedDate</span> <span class="o">=</span> <span class="n">BorrowedDate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ReturnedDate</span> <span class="o">=</span> <span class="n">ReturnedDate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BookBorrowedID</span>  <span class="o">=</span> <span class="n">BookBorrowedID</span> </div>
+
+<div class="viewcode-block" id="BorrowedSchema"><a class="viewcode-back" href="../iot_api.html#iot_api.BorrowedSchema">[docs]</a><span class="k">class</span> <span class="nc">BorrowedSchema</span><span class="p">(</span><span class="n">ma</span><span class="o">.</span><span class="n">Schema</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This calss takes in the fields for each books using nested class named meta</span>
+<span class="sd">    and calling the borrschema object the Borrowedbook information is saved. </span>
+
+<span class="sd">    Mthods</span>
+<span class="sd">    ------</span>
+
+<span class="sd">    getBook()</span>
+<span class="sd">        Api calls for getting all the books out to show as json data.</span>
+<span class="sd">    getBookbyID(id)</span>
+<span class="sd">        Api calls to get book by particular book id.</span>
+<span class="sd">    addBook()</span>
+<span class="sd">        Its a post method for post api call to add a book in the database using </span>
+<span class="sd">        api post call method. </span>
+<span class="sd">    bookDelete(id)</span>
+<span class="sd">        Delate api call method for api to delate a book by its provided </span>
+<span class="sd">        book id. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Reference: https://github.com/marshmallow-code/marshmallow/issues/377#issuecomment-261628415</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strict</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">strict</span> <span class="o">=</span> <span class="n">strict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="BorrowedSchema.Meta"><a class="viewcode-back" href="../iot_api.html#iot_api.BorrowedSchema.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="c1"># Fields to expose.</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;BookBorrowedID&quot;</span><span class="p">,</span> <span class="s2">&quot;LmsUserID&quot;</span><span class="p">,</span><span class="s2">&quot;BookID&quot;</span><span class="p">,</span> <span class="s2">&quot;Status&quot;</span><span class="p">,</span><span class="s2">&quot;BorrowedDate&quot;</span><span class="p">,</span><span class="s2">&quot;ReturnedDate&quot;</span><span class="p">,</span><span class="s2">&quot;EventID&quot;</span><span class="p">)</span></div></div>
+
+<span class="n">borrSchema</span> <span class="o">=</span> <span class="n">BorrowedSchema</span><span class="p">()</span>
+<span class="n">borrsSchema</span> <span class="o">=</span> <span class="n">BorrowedSchema</span><span class="p">(</span><span class="n">many</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Endpoint to show all Books.</span>
+<div class="viewcode-block" id="getBook"><a class="viewcode-back" href="../iot_api.html#iot_api.getBook">[docs]</a><span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/book&quot;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">getBook</span><span class="p">():</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">booksSchema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+<span class="c1">#Endpoint to get book by id</span>
+<div class="viewcode-block" id="getBookbyID"><a class="viewcode-back" href="../iot_api.html#iot_api.getBookbyID">[docs]</a><span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/book/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">getBookbyID</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">bookSchema</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="n">book</span><span class="p">)</span></div>
+
+<span class="c1"># Endpoint to create new book.</span>
+<div class="viewcode-block" id="addBook"><a class="viewcode-back" href="../iot_api.html#iot_api.addBook">[docs]</a><span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/book&quot;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">addBook</span><span class="p">():</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;Author&quot;</span><span class="p">]</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;PublishedDate&quot;</span><span class="p">]</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;Title&quot;</span><span class="p">]</span>
+
+    <span class="n">newBook</span> <span class="o">=</span> <span class="n">Book</span><span class="p">(</span><span class="n">Author</span> <span class="o">=</span> <span class="n">author</span><span class="p">,</span> <span class="n">Title</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span> <span class="n">PublishedDate</span> <span class="o">=</span> <span class="n">date</span><span class="p">)</span>
+
+    <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">newBook</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">bookSchema</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="n">newBook</span><span class="p">)</span></div>
+<span class="c1"># Endpoint to create new book.</span>
+<div class="viewcode-block" id="bookDelete"><a class="viewcode-back" href="../iot_api.html#iot_api.bookDelete">[docs]</a><span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/book/&lt;id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">bookDelete</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">BookBorrow</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">BookBorrow</span><span class="o">.</span><span class="n">BookID</span> <span class="o">==</span> <span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+
+    <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">bookSchema</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="n">book</span><span class="p">)</span></div>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                iot_api
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>
