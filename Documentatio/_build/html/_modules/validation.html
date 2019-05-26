@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>validation &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>validation</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for validation</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+
+
+<div class="viewcode-block" id="Validation"><a class="viewcode-back" href="../validation.html#validation.Validation">[docs]</a><span class="k">class</span> <span class="nc">Validation</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class used to check errors and validations</span>
+
+<span class="sd">    ...</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    says_str : str</span>
+<span class="sd">        a formatted string to print out what the animal says</span>
+<span class="sd">    name_regex : str</span>
+<span class="sd">        during registration it helps checking the inserted name errors.</span>
+<span class="sd">    userName_regex : str</span>
+<span class="sd">        during userName insertion it helps checking the validity with </span>
+<span class="sd">        defined charecters in the username.</span>
+<span class="sd">    email_regex : str</span>
+<span class="sd">        during registration process it helps taking in valid emailid.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    passwordValidation(password)</span>
+<span class="sd">        Checkss if the insertede password is of particular format.</span>
+
+<span class="sd">    passwordMaching(password, passConformation)</span>
+<span class="sd">        To check if the password typed first is matching with the password types in </span>
+<span class="sd">        the passConfirmation prompt.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[A-Za-z]*$&#39;</span><span class="p">)</span>
+    <span class="n">userName_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[A-Za-z0-9]*$&#39;</span><span class="p">)</span>
+    <span class="n">email_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^@]+@[^@]+\.[^@]&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Validation.passwordValidation"><a class="viewcode-back" href="../validation.html#validation.Validation.passwordValidation">[docs]</a>    <span class="k">def</span> <span class="nf">passwordValidation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        password : str</span>
+<span class="sd">            Provided or inserted password by the user.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">password</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Make sure your password is at lest 6 letters&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[0-9]&#39;</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Make sure your password has a number in it&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[A-Z]&#39;</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Make sure your password has a capital letter in it&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Validation.passwordMaching"><a class="viewcode-back" href="../validation.html#validation.Validation.passwordMaching">[docs]</a>    <span class="k">def</span> <span class="nf">passwordMaching</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">passConformation</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        password : str</span>
+<span class="sd">            Provided or inserted password by the user.</span>
+
+<span class="sd">        passConformation: str</span>
+<span class="sd">            Provided or inserted password by the user.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">password</span> <span class="o">==</span> <span class="n">passConformation</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                validation
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

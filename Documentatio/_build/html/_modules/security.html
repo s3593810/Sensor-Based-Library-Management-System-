@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>security &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>security</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for security</h1><div class="highlight"><pre>
+<span></span><span class="c1"># AES 256 encryption/decryption using pycrypto library</span>
+<span class="c1"># Reference:https://www.quickprogrammingtips.com/python/aes-256-encryption-and-decryption-in-python.html </span>
+<span class="c1"># That for learning purposes</span>
+ 
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="c1"># from Crypto.Cipher import AES</span>
+<span class="c1"># from Crypto import Random</span>
+
+<div class="viewcode-block" id="Security"><a class="viewcode-back" href="../security.html#security.Security">[docs]</a><span class="k">class</span> <span class="nc">Security</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class used to check errors and validations</span>
+
+<span class="sd">    ...</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    BLOCK_SIZE : global</span>
+<span class="sd">        a formatted string to print out what the animal says</span>
+<span class="sd">    pad : global</span>
+<span class="sd">        during registration it helps checking the inserted name errors.</span>
+<span class="sd">    unpad : global</span>
+<span class="sd">        during userName insertion it helps checking the validity with </span>
+<span class="sd">        defined charecters in the username.</span>
+<span class="sd">    </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    encrypt(raw, password)</span>
+<span class="sd">        takes in raw password from user and encrypts it to save in the database table</span>
+<span class="sd">        to ensure data security.</span>
+
+<span class="sd">    decrypt(enc, password)</span>
+<span class="sd">        This method helps decyphering the password to check if that password belongs</span>
+<span class="sd">        to a particular user or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+ 
+    <span class="c1"># global BLOCK_SIZE</span>
+    <span class="n">BLOCK_SIZE</span> <span class="o">=</span> <span class="mi">16</span>
+    <span class="c1"># global pad </span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">BLOCK_SIZE</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span> <span class="o">*</span> <span class="nb">chr</span><span class="p">(</span><span class="n">BLOCK_SIZE</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span>
+    <span class="c1"># global unpad </span>
+    <span class="n">unpad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="nb">ord</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:])]</span>
+
+<div class="viewcode-block" id="Security.encrypt"><a class="viewcode-back" href="../security.html#security.Security.encrypt">[docs]</a>    <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">raw</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        raw : str</span>
+<span class="sd">            raw password typed by the user</span>
+
+<span class="sd">        password : str</span>
+<span class="sd">            encrypted password.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">private_key</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="n">pad</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="s2">&quot;Random.new().read(AES.block_size)&quot;</span>
+        <span class="n">cipher</span> <span class="o">=</span> <span class="s2">&quot;AES.new(private_key, AES.MODE_CBC, iv)&quot;</span>
+        <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">iv</span> <span class="o">+</span> <span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">raw</span><span class="p">))</span></div>
+    
+    
+<div class="viewcode-block" id="Security.decrypt"><a class="viewcode-back" href="../security.html#security.Security.decrypt">[docs]</a>    <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">enc</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        enc : str</span>
+<span class="sd">            Encrypted password from the database table</span>
+<span class="sd">        password : str</span>
+<span class="sd">            Decyphered password from the database table using </span>
+<span class="sd">            dycription mechanism.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">private_key</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">enc</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="n">enc</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
+        <span class="n">cipher</span> <span class="o">=</span> <span class="s2">&quot;AES.new(private_key, AES.MODE_CBC, iv)&quot;</span>
+        <span class="k">return</span> <span class="n">unpad</span><span class="p">(</span><span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">enc</span><span class="p">[</span><span class="mi">16</span><span class="p">:]))</span></div></div>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                security
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

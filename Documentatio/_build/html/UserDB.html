@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>UserDB module &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="index.html" />
+    <link rel="up" title="Reception_Pi" href="ReceptionPy.html" />
+    <link rel="next" title="validation module" href="validation.html" />
+    <link rel="prev" title="security module" href="security.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>UserDB module</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="py-modindex.html" title="Python Module Index" >modules</a></div>
+            <div class="headerButton"><a href="validation.html" title="validation module" accesskey="N">next</a></div>
+            <div class="headerButton"><a href="security.html" title="security module" accesskey="P">previous</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ReceptionPy.html">Reception_Pi</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="App.html">App module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faceRecognition.html">faceRecognition module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RPi.html">RPi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="receptionist.html">receptionist module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">security module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">UserDB module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">validation module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+      <h3>This Page</h3>
+      <ul class="this-page-menu">
+        <li><a href="_sources/UserDB.rst.txt"
+               rel="nofollow">Show Source</a></li>
+      </ul>
+    <div id="searchbox" style="display: none">
+        <form class="search" action="search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-UserDB">
+<span id="userdb-module"></span><h1>UserDB module<a class="headerlink" href="#module-UserDB" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="UserDB.DataBase">
+<em class="property">class </em><code class="descclassname">UserDB.</code><code class="descname">DataBase</code><a class="reference internal" href="_modules/UserDB.html#DataBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.DataBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>DataBase class is an abstract class to create the abstract behaviors which is common in different scenarios.
+…</p>
+<dl class="simple">
+<dt>_localTime<span class="classifier"></span></dt><dd><p>This attribute takes in local time of Australia in a particular format.</p>
+</dd>
+<dt>_databaseName<span class="classifier"></span></dt><dd><p>attribute created for the UserDB class naming _databaseName as private as the databaseName should remain the same and should not be 
+allowed to change every now and then.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>createDatabase</dt><dd><p>Abstract Method</p>
+</dd>
+<dt>insert</dt><dd><p>Abstract Method</p>
+</dd>
+<dt>displayDB</dt><dd><p>Abstract Method</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="UserDB.DataBase.createDatabase">
+<code class="descname">createDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#DataBase.createDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.DataBase.createDatabase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="UserDB.DataBase.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#DataBase.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.DataBase.insert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="UserDB.DataBase.displayDB">
+<code class="descname">displayDB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#DataBase.displayDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.DataBase.displayDB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="UserDB.UserDB">
+<em class="property">class </em><code class="descclassname">UserDB.</code><code class="descname">UserDB</code><a class="reference internal" href="_modules/UserDB.html#UserDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#UserDB.DataBase" title="UserDB.DataBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserDB.DataBase</span></code></a></p>
+<p>UserDB class is a child class of abstract class DataBase class to implement the behaviors of the abstract methods in the abstract class
+also with some additiontial behaviors thrugh different added methods as checking if user exists in the database, if the password is correct, getting 
+all user information from the database. 
+…</p>
+<p>It does not have an attribute it only contains methods as it is ensuring the implementation of the abstract methods.</p>
+<dl class="simple">
+<dt>createDatabase</dt><dd><p>Creates a table named user_data in the database to hold user data.</p>
+</dd>
+<dt>insert(username, password, firstname, lastname, email)</dt><dd><p>Lets user insert the data in the table as username, password, firstname, lastname, email</p>
+</dd>
+<dt>displayDB</dt><dd><p>Lets user print out all the data in the user_data table.</p>
+</dd>
+<dt>isVaildUsername_Pass(username, password)</dt><dd><p>This method checking if the user name and password is valid or not.</p>
+</dd>
+<dt>get_Pass(username)</dt><dd><p>Gets out password from the table passing username.</p>
+</dd>
+<dt>getUserInformation(username)</dt><dd><p>This method returns user information from the database table using username.</p>
+</dd>
+<dt>isExist(username)</dt><dd><p>This method checks on the users existance in the system based on provided username.</p>
+</dd>
+</dl>
+<p>creates database constructor</p>
+<dl class="method">
+<dt id="UserDB.UserDB.createDatabase">
+<code class="descname">createDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#UserDB.createDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB.createDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method helps creating user_data table in the database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="UserDB.UserDB.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>username</em>, <em>password</em>, <em>firstname</em>, <em>lastname</em>, <em>email</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#UserDB.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method enters the data in the database table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="UserDB.UserDB.displayDB">
+<code class="descname">displayDB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#UserDB.displayDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB.displayDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method shows all the data from the database tables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="UserDB.UserDB.isVaildUsername_Pass">
+<code class="descname">isVaildUsername_Pass</code><span class="sig-paren">(</span><em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#UserDB.isVaildUsername_Pass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB.isVaildUsername_Pass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method shows if the user name and password exits in the database or not
+based on given username and password by the user.</p>
+<dl class="simple">
+<dt>username: str</dt><dd><p>The selected username inserted by a particular user duirng 
+registration.</p>
+</dd>
+<dt>password: str</dt><dd><p>The selected password inserted by a particular user during 
+registration to varify users existance in the system.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="UserDB.UserDB.get_Pass">
+<code class="descname">get_Pass</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#UserDB.get_Pass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB.get_Pass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method tries to get password based on users provided username.</p>
+<dl class="simple">
+<dt>username: str</dt><dd><p>The selected username inserted by a particular user duirng 
+registration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="UserDB.UserDB.getUserInformation">
+<code class="descname">getUserInformation</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#UserDB.getUserInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB.getUserInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns userinformation from the database table
+based on users provided username.</p>
+<dl class="simple">
+<dt>username: str</dt><dd><p>The selected username inserted by a particular user duirng 
+registration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="UserDB.UserDB.isExist">
+<code class="descname">isExist</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/UserDB.html#UserDB.isExist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#UserDB.UserDB.isExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method shows if the user name exits in the database or not
+based on given username by the user.</p>
+<dl class="simple">
+<dt>username: str</dt><dd><p>The selected username inserted by a particular user duirng 
+registration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="ReceptionPy.html" accesskey="U">Reception_Pi</a><img src="_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                UserDB module
+        </div>
+        <script type="text/javascript" charset="utf-8" src="_static/js/toc.js"></script>
+  </body>
+</html>

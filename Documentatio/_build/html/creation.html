@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>creation module &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="index.html" />
+    <link rel="up" title="Master_Pi" href="MasterPy.html" />
+    <link rel="next" title="MasterDrive module" href="MasterDrive.html" />
+    <link rel="prev" title="add_event module" href="add_event.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>creation module</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="py-modindex.html" title="Python Module Index" >modules</a></div>
+            <div class="headerButton"><a href="MasterDrive.html" title="MasterDrive module" accesskey="N">next</a></div>
+            <div class="headerButton"><a href="add_event.html" title="add_event module" accesskey="P">previous</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="MasterPy.html">Master_Pi</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="add_event.html">add_event module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">creation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MasterDrive.html">MasterDrive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MasterMenu.html">MasterMenu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masterPi.html">masterPi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QRCodeScanner.html">QRCodeScanner module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampleinsert.html">sampleinsert module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speechRecognition.html">speechRecognition module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+      <h3>This Page</h3>
+      <ul class="this-page-menu">
+        <li><a href="_sources/creation.rst.txt"
+               rel="nofollow">Show Source</a></li>
+      </ul>
+    <div id="searchbox" style="display: none">
+        <form class="search" action="search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-creation">
+<span id="creation-module"></span><h1>creation module<a class="headerlink" href="#module-creation" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="creation.LMScreation">
+<em class="property">class </em><code class="descclassname">creation.</code><code class="descname">LMScreation</code><span class="sig-paren">(</span><em>connection=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/creation.html#LMScreation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#creation.LMScreation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class shows the cloud managment and database 
+functionalities.</p>
+<dl class="simple">
+<dt>HOST</dt><dd><p>IP address of the Host device.</p>
+</dd>
+<dt>USER</dt><dd><p>UserName for the Cloud database.</p>
+</dd>
+<dt>PASSWORD</dt><dd><p>Password for the cloud database.</p>
+</dd>
+<dt>DATABASE</dt><dd><p>Name of the database already created in cloud.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>__init__(connection=None)</dt><dd><p>Checks on the connection and selects cursor 
+cleans up the database if there is already tables exist.</p>
+</dd>
+<dt>close()</dt><dd><p>Closes the connection.</p>
+</dd>
+</dl>
+<p>__enter__()</p>
+<p>__exit__()</p>
+<dl class="simple">
+<dt>createLMSuserTable()</dt><dd><p>Creates LMS User table in the cloud database.</p>
+</dd>
+<dt>createbookTable()</dt><dd><p>Creates book table in the cloud database.</p>
+</dd>
+<dt>createBookborrowedTable()</dt><dd><p>Creates books borrowed table in cloud database
+to monitor which book is borrowed by whom and when.</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="creation.LMScreation.HOST">
+<code class="descname">HOST</code><em class="property"> = '35.201.25.216'</em><a class="headerlink" href="#creation.LMScreation.HOST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="creation.LMScreation.USER">
+<code class="descname">USER</code><em class="property"> = 'root'</em><a class="headerlink" href="#creation.LMScreation.USER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="creation.LMScreation.PASSWORD">
+<code class="descname">PASSWORD</code><em class="property"> = ''</em><a class="headerlink" href="#creation.LMScreation.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="creation.LMScreation.DATABASE">
+<code class="descname">DATABASE</code><em class="property"> = 'LMS'</em><a class="headerlink" href="#creation.LMScreation.DATABASE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="creation.LMScreation.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/creation.html#LMScreation.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#creation.LMScreation.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="creation.LMScreation.createLMSuserTable">
+<code class="descname">createLMSuserTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/creation.html#LMScreation.createLMSuserTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#creation.LMScreation.createLMSuserTable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="creation.LMScreation.createbookTable">
+<code class="descname">createbookTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/creation.html#LMScreation.createbookTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#creation.LMScreation.createbookTable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="creation.LMScreation.createBookborrowedTable">
+<code class="descname">createBookborrowedTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/creation.html#LMScreation.createBookborrowedTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#creation.LMScreation.createBookborrowedTable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="MasterPy.html" accesskey="U">Master_Pi</a><img src="_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                creation module
+        </div>
+        <script type="text/javascript" charset="utf-8" src="_static/js/toc.js"></script>
+  </body>
+</html>

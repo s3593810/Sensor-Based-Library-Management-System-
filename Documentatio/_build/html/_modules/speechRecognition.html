@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>speechRecognition &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>speechRecognition</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for speechRecognition</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Acknowledgement</span>
+<span class="c1"># This code is adapted from week 10 tutorial for learning purposes</span>
+
+<span class="c1"># import speech_recognition as sr</span>
+<span class="c1"># import MySQLdb</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+
+<span class="n">sr</span><span class="o">=</span><span class="s2">&quot;a&quot;</span>
+<div class="viewcode-block" id="SpeechRecognition"><a class="viewcode-back" href="../speechRecognition.html#speechRecognition.SpeechRecognition">[docs]</a><span class="k">class</span> <span class="nc">SpeechRecognition</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class helps recognising users voice to run further Library </span>
+<span class="sd">    functionalities.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ---------</span>
+<span class="sd">    MIC_NAME: Str</span>
+<span class="sd">        Hard Coded to identify particular Mic device to take voice inputs.</span>
+<span class="sd">    </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    main()</span>
+<span class="sd">        Takes in voice input to search based on the inputed voice.</span>
+
+<span class="sd">    getKeyToSearch()</span>
+<span class="sd">        Takes in voice input and runs it to check and convert in to speech using </span>
+<span class="sd">        googles voice recognition feature and return it as key.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">MIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;Microsoft® LifeCam Cinema(TM): USB Audio (hw:1,0)&quot;</span>
+
+<div class="viewcode-block" id="SpeechRecognition.main"><a class="viewcode-back" href="../speechRecognition.html#speechRecognition.SpeechRecognition.main">[docs]</a>    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getKeyToSearch</span><span class="p">()</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to get the search key.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">key</span></div>
+
+<div class="viewcode-block" id="SpeechRecognition.getKeyToSearch"><a class="viewcode-back" href="../speechRecognition.html#speechRecognition.SpeechRecognition.getKeyToSearch">[docs]</a>    <span class="k">def</span> <span class="nf">getKeyToSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># To test searching without the microphone uncomment this line of code</span>
+        <span class="c1"># return input(&quot;Enter the first name to search for: &quot;)</span>
+
+        <span class="c1"># Set the device ID of the mic that we specifically want to use to avoid ambiguity</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">microphone_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">Microphone</span><span class="o">.</span><span class="n">list_microphone_names</span><span class="p">()):</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">microphone_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">MIC_NAME</span><span class="p">):</span>
+                <span class="n">device_id</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>
+
+        <span class="c1"># obtain audio from the microphone</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">Recognizer</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">sr</span><span class="o">.</span><span class="n">Microphone</span><span class="p">(</span><span class="n">device_index</span><span class="o">=</span><span class="n">device_id</span><span class="p">)</span> <span class="k">as</span> <span class="n">source</span><span class="p">:</span>
+            <span class="c1"># clear console of errors</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;clear&quot;</span><span class="p">)</span>
+
+            <span class="c1"># wait for a second to let the recognizer adjust the</span>
+            <span class="c1"># energy threshold based on the surrounding noise level</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">adjust_for_ambient_noise</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Say the search key .&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">audio</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">sr</span><span class="o">.</span><span class="n">WaitTimeoutError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># recognize speech using Google Speech Recognition</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recognize_google</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">UnknownValueError</span><span class="p">,</span> <span class="n">sr</span><span class="o">.</span><span class="n">RequestError</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">key</span></div></div>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                speechRecognition
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

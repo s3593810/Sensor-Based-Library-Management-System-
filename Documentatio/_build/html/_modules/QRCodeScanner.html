@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>QRCodeScanner &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>QRCodeScanner</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for QRCodeScanner</h1><div class="highlight"><pre>
+<span></span><span class="c1"># USAGE</span>
+<span class="c1"># python3 barcode_scanner_console.py</span>
+
+<span class="c1"># Acknowledgement</span>
+<span class="c1"># This code is adapted from:</span>
+<span class="c1"># https://www.pyimagesearch.com/2018/05/21/an-opencv-barcode-and-qr-code-scanner-with-zbar/</span>
+<span class="c1"># pip3 install pyzbar</span>
+
+<span class="c1"># import the necessary packages</span>
+<span class="c1"># from imutils.video import VideoStream</span>
+<span class="c1"># from pyzbar import pyzbar</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="c1"># import imutils</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="c1"># import cv2</span>
+
+
+<div class="viewcode-block" id="QRCodeReader"><a class="viewcode-back" href="../QRCodeScanner.html#QRCodeScanner.QRCodeReader">[docs]</a><span class="k">class</span> <span class="nc">QRCodeReader</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class adds the functionality of QR code scanning from a book.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    readCode()</span>
+<span class="sd">        Lets master py act as a QR code scanner.</span>
+<span class="sd">        Turns on the camera and scans the code from the book.</span>
+<span class="sd">        Scans out the barcode from the book and decodes it to check with the system.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="QRCodeReader.readCode"><a class="viewcode-back" href="../QRCodeScanner.html#QRCodeScanner.QRCodeReader.readCode">[docs]</a>    <span class="k">def</span> <span class="nf">readCode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># initialize the video stream and allow the camera sensor to warm up</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please scan the QR code&quot;</span><span class="p">)</span>
+        <span class="n">vs</span> <span class="o">=</span> <span class="s2">&quot;VideoStream(src=0).start()&quot;</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+
+        <span class="n">found</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="c1"># loop over the frames from the video stream</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># grab the frame from the threaded video stream and resize it to</span>
+            <span class="c1"># have a maximum width of 400 pixels</span>
+
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">vs</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;imutils.resize(frame, width=400)&quot;</span>
+
+            <span class="c1"># find the barcodes in the frame and decode each of the barcodes</span>
+            <span class="n">barcodes</span> <span class="o">=</span> <span class="s2">&quot;pyzbar.decode(frame)&quot;</span>
+
+            <span class="c1"># loop over the detected barcodes</span>
+            <span class="k">for</span> <span class="n">barcode</span> <span class="ow">in</span> <span class="n">barcodes</span><span class="p">:</span>
+                <span class="c1"># the barcode data is a bytes object so we convert it to a string</span>
+                <span class="n">barcodeData</span> <span class="o">=</span> <span class="n">barcode</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">barcodeType</span> <span class="o">=</span> <span class="n">barcode</span><span class="o">.</span><span class="n">type</span>
+
+                <span class="c1"># if the barcode text has not been seen before print it and update the set</span>
+                <span class="k">if</span> <span class="n">barcodeData</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">found</span><span class="p">:</span>
+                    <span class="n">vs</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">barcodeData</span>
+
+            <span class="c1"># wait a little before scanning again</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># close the output CSV file do a bit of cleanup</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] cleaning up...&quot;</span><span class="p">)</span>
+        <span class="n">vs</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                QRCodeScanner
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

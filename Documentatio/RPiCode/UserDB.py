@@ -5,6 +5,7 @@ from pytz import timezone
 
 
 class DataBase(ABC):
+
     """
     DataBase class is an abstract class to create the abstract behaviors which is common in different scenarios.
     ...
@@ -30,7 +31,7 @@ class DataBase(ABC):
         
     """
     _localTime = datetime.now(
-        timezone('Australia/Sydney')).strftime("%Y-%m-%d %H:%M:%S")
+    timezone('Australia/Sydney')).strftime("%Y-%m-%d %H:%M:%S")
     _databaseName = 'user.db'
     #   @abstractmethod
 
@@ -44,9 +45,10 @@ class DataBase(ABC):
 
     def displayDB(self):
         pass
-
+    
 
 class UserDB(DataBase):
+    
     """
     UserDB class is a child class of abstract class DataBase class to implement the behaviors of the abstract methods in the abstract class
     also with some additiontial behaviors thrugh different added methods as checking if user exists in the database, if the password is correct, getting 
@@ -78,14 +80,16 @@ class UserDB(DataBase):
         This method returns user information from the database table using username.
     
     isExist(username)
-        This method checks on the users existance in the system based on provided username.    
+        This method checks on the users existance in the system based on provided username.
+
+        
     """
     def __init__(self):
-        """creating the database in the local directory using Sqlite."""
+        """creates database constructor"""
         self.createDatabase()
 
     def createDatabase(self):
-        ""
+        """This method helps creating user_data table in the database"""
         connection = lite.connect(self._databaseName)
         with connection:
             point = connection.cursor()
@@ -93,6 +97,7 @@ class UserDB(DataBase):
                 "CREATE TABLE IF NOT EXISTS user_data(timestamp DATETIME, username VARCHAR(20), password VARCHAR(20), firstname VARCHAR(30), lastname VARCHAR(30), email VARCHAR(50))")
 
     def insert(self, username, password, firstname, lastname, email):
+        """This method enters the data in the database table."""
         connection = lite.connect(self._databaseName)
         with connection:
             connection.execute(
@@ -101,6 +106,7 @@ class UserDB(DataBase):
         connection.close()
 
     def displayDB(self):
+        """This method shows all the data from the database tables."""
         connection = lite.connect(self._databaseName)
         with connection:
             point = connection.cursor()
@@ -110,6 +116,20 @@ class UserDB(DataBase):
         connection.close()
 
     def isVaildUsername_Pass(self, username, password):
+        """This method shows if the user name and password exits in the database or not
+        based on given username and password by the user.
+        
+        Parameters
+        ----------
+        username: str
+            The selected username inserted by a particular user duirng 
+            registration.
+        password: str
+            The selected password inserted by a particular user during 
+            registration to varify users existance in the system.
+        """
+
+
         connection = lite.connect(self._databaseName)
         with connection:
             point = connection.cursor()
@@ -122,6 +142,14 @@ class UserDB(DataBase):
         return False
 
     def get_Pass(self, username):
+        """This method tries to get password based on users provided username.
+        
+        Parameters
+        ----------
+        username: str
+            The selected username inserted by a particular user duirng 
+            registration.
+        """
         connection = lite.connect(self._databaseName)
         with connection:
             point = connection.cursor()
@@ -133,6 +161,15 @@ class UserDB(DataBase):
         return result
 
     def getUserInformation(self,username):
+        """This method returns userinformation from the database table
+        based on users provided username.
+        
+        Parameters
+        ----------
+        username: str
+            The selected username inserted by a particular user duirng 
+            registration.
+        """
         connection = lite.connect(self._databaseName)
         with connection:
             point = connection.cursor()
@@ -143,6 +180,15 @@ class UserDB(DataBase):
         return { "username": result[0], "firstname": result[1], "lastname": result[2]  }
 
     def isExist(self, username):
+        """This method shows if the user name exits in the database or not
+        based on given username by the user.
+        
+        Parameters
+        ----------
+        username: str
+            The selected username inserted by a particular user duirng 
+            registration.
+        """
         connection = lite.connect(self._databaseName)
         with connection:
             point = connection.cursor()
