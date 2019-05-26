@@ -60,9 +60,9 @@ class MasterDrive:
         Adds functionality so that user can scan qr code to search or return a book.
 
     """
-    HOST = "35.201.25.216"
+    HOST = "35.244.105.250"
     USER = "root"
-    PASSWORD = ""
+    PASSWORD = "abc123"
     DATABASE = "LMS"
     qrCode=QRCodeReader()
     speechRecognition=SpeechRecognition()
@@ -97,6 +97,17 @@ class MasterDrive:
                 return input("Enter the search key :")
             elif(selection == "2"):
                 return self.speechRecognition.getKeyToSearch()
+    def searchOptions_BurrowAndReturn(self):
+        print("1.Search using keyboard")
+        print("2.Search using QR code")
+        print("3.Search by speech recognition")
+        selection = input("Select an option: ")
+        if(selection == "1"):
+            return input("Enter the Book ID :")
+        elif(selection == "2"):
+            return self.qrCode.readCode() 
+        elif(selection == "3"):
+            return self.speechRecognition.getKeyToSearch()
 
     def insertUser(self, user):
         if self.isExist(user["username"])==False:
@@ -114,7 +125,7 @@ class MasterDrive:
 
     def BorrowBook(self):
         print("--------------Borrow Book---------------")
-        bookid = input("Enter the Book ID ")
+        bookid = self.searchOptions_BurrowAndReturn()
         with self.connection.cursor() as cursor:
             cursor.execute("SELECT count(bookid) FROM Book WHERE BookID=%s", (bookid,))
             value = cursor.fetchone()
@@ -128,12 +139,16 @@ class MasterDrive:
                     userid = 1 # have to change
                     now = datetime.now()
                     date = now.strftime('%Y-%m-%d %H:%M:%S')
+                    one = 1
+                    zero = 0
                     with self.connection.cursor() as cursor:
-                        cursor.execute("insert into BookBorrowed (LmsUserID,BookID,Status,BorrowedDate,ReturnedDate) values (%s,%s,%s,%s,%s)", (userid,bookid,"borrowed",date,None))
+                        cursor.execute("insert into BookBorrowed (LmsUserID,BookID,Status,BorrowedDate,ReturnedDate,Borrow,ReturnCount,EventID) values (%s,%s,%s,%s,%s,%s)", (userid,bookid,"borrowed",date,None,one,zero,None))
                         name = getDetails.getPerson(userid)
                         book = getDetails.getBook(bookid)
-                        cursor.execute("""UPDATE BookBorrowed SET Status = %s , ReturnedDate = %s WHERE BookID= %s """,("borrowed", date, bookid))
-                        event.insert(name,bookid, "borrowed", date, book, userid)
+                        
+                        eventID = event.insert(name,bookid, "borrowed", date, book, userid)
+                        print(eventID)
+                        cursor.execute("""UPDATE BookBorrowed SET Status = %s , EventID = %s WHERE BookID= %s """,("borrowed", eventID, bookid))
                     self.connection.commit()
                     print("Book has been Borrowed ! ")
                 elif(value[0] == "borrowed"):
@@ -141,7 +156,7 @@ class MasterDrive:
     
     def ReturnBook(self):
         print("--------------Return Book---------------")
-        bookid = input("Enter the Book ID ")
+        bookid = self.searchOptions_BurrowAndReturn
         borroweddate = input("Enter the Borrowed Date in YY - MM - DD = ")
         with self.connection.cursor() as cursor:
 
@@ -149,7 +164,7 @@ class MasterDrive:
             value = cursor.fetchone()
 
             if(value[0] == 1):
-                cursor.execute("SELECT Status FROM BookBorrowed WHERE BookID=%s and BorrowedDate = %s", (bookid,borroweddate,))
+                cursor.execute("SELECT Status,EventID FROM BookBorrowed WHERE BookID=%s and BorrowedDate = %s", (bookid,borroweddate,))
                 value = cursor.fetchone()
                 if(value == None or value[0] == "returned"):
                     print("This Book is not Borrowed ! ")
@@ -157,13 +172,13 @@ class MasterDrive:
                     now = datetime.now()
                     date = now.strftime('%Y-%m-%d %H:%M:%S')
                     with self.connection.cursor() as cursor:
-                        cursor.execute("""UPDATE BookBorrowed SET Status = %s , ReturnedDate = %s WHERE BookID= %s """,("returned", date, bookid))
+                        one = 1
+                        zero = 0
+                        cursor.execute("""UPDATE BookBorrowed SET Status = %s , ReturnedDate = %s, Borrow = %s, ReturnCount = %s WHERE BookID= %s """,("returned", date, zero, one, bookid))
+                        event.delete(value[1])
                     self.connection.commit()
                     print("Book has been returned ! ")
-        # with self.connection.cursor() as cursor:
-        #     cursor.execute("select * from BookBorrowed")
-        #     print( cursor.fetchall())
-
+    
 
     def SearchID(self,bookid):
         with self.connection.cursor() as cursor:
