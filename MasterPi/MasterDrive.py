@@ -2,6 +2,7 @@ import MySQLdb
 from sampleinsert import SamInsert
 from add_event import Add_event
 from QRCodeScanner import QRCodeReader
+from speechRecognition import SpeechRecognition
 import datetime
 from datetime import datetime
 
@@ -64,6 +65,7 @@ class MasterDrive:
     PASSWORD = ""
     DATABASE = "LMS"
     qrCode=QRCodeReader()
+    speechRecognition=SpeechRecognition()
 
     def __init__(self, connection = None):
         if(connection == None):
@@ -86,7 +88,7 @@ class MasterDrive:
             elif(selection == "2"):
                 return self.qrCode.readCode() 
             elif(selection == "3"):
-                return 1
+                return self.speechRecognition.getKeyToSearch()
         else:
             print("1.Search using keyboard")
             print("2.Search by speech recognition")
@@ -94,7 +96,7 @@ class MasterDrive:
             if(selection == "1"):
                 return input("Enter the search key :")
             elif(selection == "2"):
-                return 1
+                return self.speechRecognition.getKeyToSearch()
 
     def insertUser(self, user):
         if self.isExist(user["username"])==False:
