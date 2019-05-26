@@ -10,7 +10,8 @@ getDetails = SamInsert()
 
 class Menu:
     """
-
+    This calss handles the welcome screen and functionality of 
+    the Master pi menu options.
   
     
     Methods
