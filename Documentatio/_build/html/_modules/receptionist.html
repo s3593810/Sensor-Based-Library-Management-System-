@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>receptionist &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>receptionist</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for receptionist</h1><div class="highlight"><pre>
+<span></span><span class="c1"># from UserDB import UserDB</span>
+<span class="c1"># from user import User</span>
+<span class="c1"># import getpass</span>
+<span class="c1"># from security import Security</span>
+<span class="c1"># import re</span>
+<span class="c1"># from validation import Validation</span>
+
+
+<div class="viewcode-block" id="Receptionist"><a class="viewcode-back" href="../receptionist.html#receptionist.Receptionist">[docs]</a><span class="k">class</span> <span class="nc">Receptionist</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Receptionist class used to represent an reception py functionality of user registration and login.</span>
+
+<span class="sd">    ...</span>
+
+<span class="sd">    Objects</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __db : </span>
+<span class="sd">        Object created for UserDB class naming __db as protected object.   </span>
+<span class="sd">    __secure : </span>
+<span class="sd">        Object created for the Security class naming __secure as protected object.   </span>
+<span class="sd">    __valid :</span>
+<span class="sd">        Object  created for the validation class naming __valid as protected object.   </span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    register</span>
+<span class="sd">        Lets a new user to register an account with valid user name, password, Proper name, email.</span>
+
+<span class="sd">    login</span>
+<span class="sd">        Lets the existing user login to the system using valid user id and password. </span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># __db = UserDB()</span>
+    <span class="c1"># __secure = Security()</span>
+    <span class="c1"># __valid = Validation()</span>
+
+<div class="viewcode-block" id="Receptionist.register"><a class="viewcode-back" href="../receptionist.html#receptionist.Receptionist.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method takes in user information as username, password and asks to user to confirm the password</span>
+<span class="sd">        if the user name exists already in the system it asks to choose another username.</span>
+<span class="sd">        Then the password gets checked if its a valid one or not as well as the inserted password matching the </span>
+<span class="sd">        confirmation password. If the password does not match the confirmation password it shows messege as password does not match.</span>
+<span class="sd">        Further it prompts the user for first name, last name, email id and then user object gets created using User method of the UserDB class</span>
+<span class="sd">        and get those all user inserted data as parameters.</span>
+
+<span class="sd">        Using the methods of the UserDB class the database gets created, the overall data gets inserted as well in this method. </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Insert your UserName Please: &quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db</span><span class="o">.</span><span class="n">isExist</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valid</span><span class="o">.</span><span class="n">userName_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+                <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">break</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sorry the username is exist.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please choose another username&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;getpass.getpass(Insert your Password Please: )&quot;</span>
+            <span class="n">confirmPassword</span> <span class="o">=</span> <span class="s2">&quot;getpass.getpass(Confirm your Password : )&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valid</span><span class="o">.</span><span class="n">passwordValidation</span><span class="p">(</span><span class="n">password</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valid</span><span class="o">.</span><span class="n">passwordMaching</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">confirmPassword</span><span class="p">):</span>
+                <span class="n">password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__secure</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;password does not match&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">firstname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Insert your First Name Please: &quot;</span><span class="p">))</span>
+            <span class="n">lastname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Insert your Last Name Please: &quot;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valid</span><span class="o">.</span><span class="n">name_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">firstname</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valid</span><span class="o">.</span><span class="n">name_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">lastname</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You should enter letters only&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">email</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Insert Your Email Please: &quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valid</span><span class="o">.</span><span class="n">email_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">email</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;you should enter a vaild email address&quot;</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="s2">&quot;User(username, password, firstname, lastname, email)&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__db</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">firstname</span><span class="p">,</span> <span class="n">lastname</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__db</span><span class="o">.</span><span class="n">displayDB</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Receptionist.login"><a class="viewcode-back" href="../receptionist.html#receptionist.Receptionist.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method asks user for user name and password and checks if the user name and password exists in the database</span>
+<span class="sd">        if it finds the existing match it lets the user login the system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__db</span> <span class="o">=</span> <span class="s2">&quot;UserDB()&quot;</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">userName</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Insert Your UserName: &quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valid</span><span class="o">.</span><span class="n">userName_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">userName</span><span class="p">):</span>
+                    <span class="k">break</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;getpass.getpass(Insert Your Password: )&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db</span><span class="o">.</span><span class="n">isExist</span><span class="p">(</span><span class="n">userName</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;You are not registered you should register by choose 1 from the menu&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+                <span class="k">break</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db</span><span class="o">.</span><span class="n">get_Pass</span><span class="p">(</span><span class="n">userName</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">plain_pass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__secure</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">userName</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">plain_pass</span><span class="p">)</span> <span class="o">==</span> <span class="n">password</span><span class="p">:</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db</span><span class="o">.</span><span class="n">getUserInformation</span><span class="p">(</span><span class="n">userName</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="n">data</span>
+                        <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Username or password is wrong&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It is wrong you can try again&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                receptionist
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

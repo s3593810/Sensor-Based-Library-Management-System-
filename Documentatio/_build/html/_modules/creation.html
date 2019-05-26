@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>creation &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="../_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="../_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>creation</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="../py-modindex.html" title="Python Module Index" >modules</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Flask_Site_and_Api.html">Flask_Site_and_Api</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+        <form class="search" action="../search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for creation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># import MySQLdb</span>
+
+<div class="viewcode-block" id="LMScreation"><a class="viewcode-back" href="../creation.html#creation.LMScreation">[docs]</a><span class="k">class</span> <span class="nc">LMScreation</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class shows the cloud managment and database </span>
+<span class="sd">    functionalities.</span>
+
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    HOST</span>
+<span class="sd">        IP address of the Host device.</span>
+<span class="sd">    USER</span>
+<span class="sd">        UserName for the Cloud database.</span>
+<span class="sd">    PASSWORD</span>
+<span class="sd">        Password for the cloud database.</span>
+<span class="sd">    DATABASE</span>
+<span class="sd">        Name of the database already created in cloud.</span>
+<span class="sd">        </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    __init__(connection=None)</span>
+<span class="sd">        Checks on the connection and selects cursor </span>
+<span class="sd">        cleans up the database if there is already tables exist.</span>
+
+<span class="sd">    close()</span>
+<span class="sd">        Closes the connection.</span>
+<span class="sd">    __enter__()</span>
+
+<span class="sd">    __exit__()</span>
+
+<span class="sd">    createLMSuserTable()</span>
+<span class="sd">        Creates LMS User table in the cloud database.</span>
+
+<span class="sd">    createbookTable()</span>
+<span class="sd">        Creates book table in the cloud database.</span>
+
+<span class="sd">    createBookborrowedTable()</span>
+<span class="sd">        Creates books borrowed table in cloud database</span>
+<span class="sd">        to monitor which book is borrowed by whom and when.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;35.201.25.216&quot;</span>
+    <span class="n">USER</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+    <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">DATABASE</span> <span class="o">=</span> <span class="s2">&quot;LMS&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">connection</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">connection</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;connect(LMScreation.HOST, LMScreation.USER,</span>
+<span class="s2">                LMScreation.PASSWORD, LMScreation.DATABASE)&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS BookBorrowed&quot;</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS Book&quot;</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS LmsUser&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LMScreation.close"><a class="viewcode-back" href="../creation.html#creation.LMScreation.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<div class="viewcode-block" id="LMScreation.createLMSuserTable"><a class="viewcode-back" href="../creation.html#creation.LMScreation.createLMSuserTable">[docs]</a>    <span class="k">def</span> <span class="nf">createLMSuserTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                create table LmsUser (LmsUserID int not null auto_increment,</span>
+<span class="s2">                    UserName nvarchar(256) not null,</span>
+<span class="s2">                    FirstName text not null,</span>
+<span class="s2">                    LastName text not null,</span>
+<span class="s2">                    constraint PK_LmsUser primary key (LmsUserID),</span>
+<span class="s2">                    constraint UN_UserName unique (UserName)</span>
+<span class="s2">                )&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="LMScreation.createbookTable"><a class="viewcode-back" href="../creation.html#creation.LMScreation.createbookTable">[docs]</a>    <span class="k">def</span> <span class="nf">createbookTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                create table Book (BookID int not null auto_increment,</span>
+<span class="s2">                    Title text not null,</span>
+<span class="s2">                    Author text not null,</span>
+<span class="s2">                    PublishedDate date not null,</span>
+<span class="s2">                    constraint PK_Book primary key (BookID)</span>
+<span class="s2">                )&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="LMScreation.createBookborrowedTable"><a class="viewcode-back" href="../creation.html#creation.LMScreation.createBookborrowedTable">[docs]</a>    <span class="k">def</span> <span class="nf">createBookborrowedTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS BookBorrowed&quot;</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                create table BookBorrowed (BookBorrowedID int not null auto_increment,</span>
+<span class="s2">                    LmsUserID int not null,</span>
+<span class="s2">                    BookID int not null,</span>
+<span class="s2">                    Status enum (&#39;borrowed&#39;, &#39;returned&#39;),</span>
+<span class="s2">                    BorrowedDate date not null,</span>
+<span class="s2">                    ReturnedDate date null,</span>
+<span class="s2">                    constraint PK_BookBorrowed primary key (BookBorrowedID),</span>
+<span class="s2">                    constraint FK_BookBorrowed_LmsUser foreign key (LmsUserID) references LmsUser (LmsUserID),</span>
+<span class="s2">                    constraint FK_BookBorrowed_Book foreign key (BookID) references Book (BookID)</span>
+<span class="s2">                )&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div></div>
+
+    
+    
+<span class="c1"># create=LMScreation()</span>
+<span class="c1"># create.createLMSuserTable()</span>
+<span class="c1"># create.createbookTable()</span>
+<span class="c1"># create.createBookborrowedTable()</span>
+
+</pre></div>
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="index.html" accesskey="U">Module code</a><img src="../_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                creation
+        </div>
+        <script type="text/javascript" charset="utf-8" src="../_static/js/toc.js"></script>
+  </body>
+</html>

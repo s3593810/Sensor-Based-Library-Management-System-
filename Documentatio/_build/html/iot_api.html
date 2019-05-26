@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>iot_api module &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="index.html" />
+    <link rel="up" title="Flask_Site_and_Api" href="Flask_Site_and_Api.html" />
+    <link rel="next" title="iot_main module" href="iot_main.html" />
+    <link rel="prev" title="FacialRecognition_Drive module" href="FacialRecognition_Drive.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>iot_api module</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="py-modindex.html" title="Python Module Index" >modules</a></div>
+            <div class="headerButton"><a href="iot_main.html" title="iot_main module" accesskey="N">next</a></div>
+            <div class="headerButton"><a href="FacialRecognition_Drive.html" title="FacialRecognition_Drive module" accesskey="P">previous</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Flask_Site_and_Api.html">Flask_Site_and_Api</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="creation.html">creation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FacialRecognition_Drive.html">FacialRecognition_Drive module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">iot_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iot_main.html">iot_main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_api.html">site_api module</a></li>
+</ul>
+</li>
+</ul>
+
+      <h3>This Page</h3>
+      <ul class="this-page-menu">
+        <li><a href="_sources/iot_api.rst.txt"
+               rel="nofollow">Show Source</a></li>
+      </ul>
+    <div id="searchbox" style="display: none">
+        <form class="search" action="search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-iot_api">
+<span id="iot-api-module"></span><h1>iot_api module<a class="headerlink" href="#module-iot_api" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="iot_api.Book">
+<em class="property">class </em><code class="descclassname">iot_api.</code><code class="descname">Book</code><span class="sig-paren">(</span><em>Title</em>, <em>Author</em>, <em>PublishedDate</em>, <em>BookID=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#Book"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.Book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Model</span></code></p>
+<p>This class loads in the data in the cloud database using api calls.</p>
+<dl class="simple">
+<dt>BookID: int </dt><dd><p>Collumn for Auto Generated Book Id for each time a book is added.</p>
+</dd>
+<dt>Title: str</dt><dd><p>Collumn for user (LMS Admin) inserted Book titles.</p>
+</dd>
+<dt>Author: str</dt><dd><p>Collumn for User inserted Author Name of the book.</p>
+</dd>
+<dt>PublishedDate: DateTime</dt><dd><p>DateTime collumn to monitor the dates and times when 
+book is borrowed and returned.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>__init__(Title, Author, PublishedDate,BookID = None)</dt><dd><p>This method just initializes the values for the inserted collumns.</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="iot_api.Book.BookID">
+<code class="descname">BookID</code><a class="headerlink" href="#iot_api.Book.BookID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.Book.Title">
+<code class="descname">Title</code><a class="headerlink" href="#iot_api.Book.Title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.Book.Author">
+<code class="descname">Author</code><a class="headerlink" href="#iot_api.Book.Author" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.Book.PublishedDate">
+<code class="descname">PublishedDate</code><a class="headerlink" href="#iot_api.Book.PublishedDate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="iot_api.BookSchema">
+<em class="property">class </em><code class="descclassname">iot_api.</code><code class="descname">BookSchema</code><span class="sig-paren">(</span><em>strict=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#BookSchema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.BookSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_marshmallow.schema.Schema</span></code></p>
+<p>This calss takes in the fields for each books using nested class named meta
+and calling the bookschema object the book information is saved.</p>
+<dl class="class">
+<dt id="iot_api.BookSchema.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/iot_api.html#BookSchema.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.BookSchema.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="iot_api.BookSchema.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('BookID', 'Title', 'Author', 'PublishedDate')</em><a class="headerlink" href="#iot_api.BookSchema.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.BookSchema.opts">
+<code class="descname">opts</code><em class="property"> = &lt;marshmallow.schema.SchemaOpts object&gt;</em><a class="headerlink" href="#iot_api.BookSchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="iot_api.BookBorrow">
+<em class="property">class </em><code class="descclassname">iot_api.</code><code class="descname">BookBorrow</code><span class="sig-paren">(</span><em>LmsUserID</em>, <em>BookID</em>, <em>Status</em>, <em>BorrowedDate</em>, <em>ReturnedDate</em>, <em>BookBorrowedID=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#BookBorrow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.BookBorrow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Model</span></code></p>
+<blockquote>
+<div><p>This class setsup the modle for the borrow book api functions.</p>
+</div></blockquote>
+<dl>
+<dt>__tablename__:  str</dt><dd><blockquote>
+<div><p>Adds in the table named as BookBorrowed in the database.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>LmsUserID: str</dt><dd><p>Collumn named LmsUserID gets created in the Bookborrowed table 
+so that each time a book is borrowed the user ID gets saved in the 
+database.</p>
+</dd>
+<dt>BookID: int</dt><dd><p>Collumn named BookID gets created in the table.</p>
+</dd>
+<dt>Status: str</dt><dd><p>Collumn named status gets created in the table
+to store information about if the book is available to 
+borrow or not.</p>
+</dd>
+<dt>BorrowedDate: Date</dt><dd><p>Collumn gets added to store date for the bookborrowed.</p>
+</dd>
+<dt>ReturnDate: Date</dt><dd><p>Collumn is added to store the terun dates of the books been 
+borrowed already.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>__init__(LmsUserID, BookID, Status , BorrowedDate, ReturnedDate,BookBorrowedID = None)</dt><dd><p>This method initializes the values for the BookBorrowed table.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="iot_api.BookBorrow.EventID">
+<code class="descname">EventID</code><a class="headerlink" href="#iot_api.BookBorrow.EventID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.BookBorrow.LmsUserID">
+<code class="descname">LmsUserID</code><a class="headerlink" href="#iot_api.BookBorrow.LmsUserID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.BookBorrow.BookID">
+<code class="descname">BookID</code><a class="headerlink" href="#iot_api.BookBorrow.BookID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.BookBorrow.Status">
+<code class="descname">Status</code><a class="headerlink" href="#iot_api.BookBorrow.Status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.BookBorrow.BorrowedDate">
+<code class="descname">BorrowedDate</code><a class="headerlink" href="#iot_api.BookBorrow.BorrowedDate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.BookBorrow.ReturnedDate">
+<code class="descname">ReturnedDate</code><a class="headerlink" href="#iot_api.BookBorrow.ReturnedDate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="iot_api.BookBorrow.BookBorrowedID">
+<code class="descname">BookBorrowedID</code><a class="headerlink" href="#iot_api.BookBorrow.BookBorrowedID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="iot_api.BorrowedSchema">
+<em class="property">class </em><code class="descclassname">iot_api.</code><code class="descname">BorrowedSchema</code><span class="sig-paren">(</span><em>strict=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#BorrowedSchema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.BorrowedSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_marshmallow.schema.Schema</span></code></p>
+<p>This calss takes in the fields for each books using nested class named meta
+and calling the borrschema object the Borrowedbook information is saved.</p>
+<dl class="simple">
+<dt>getBook()</dt><dd><p>Api calls for getting all the books out to show as json data.</p>
+</dd>
+<dt>getBookbyID(id)</dt><dd><p>Api calls to get book by particular book id.</p>
+</dd>
+<dt>addBook()</dt><dd><p>Its a post method for post api call to add a book in the database using 
+api post call method.</p>
+</dd>
+<dt>bookDelete(id)</dt><dd><p>Delate api call method for api to delate a book by its provided 
+book id.</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="iot_api.BorrowedSchema.opts">
+<code class="descname">opts</code><em class="property"> = &lt;marshmallow.schema.SchemaOpts object&gt;</em><a class="headerlink" href="#iot_api.BorrowedSchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="iot_api.BorrowedSchema.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/iot_api.html#BorrowedSchema.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.BorrowedSchema.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="iot_api.BorrowedSchema.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('BookBorrowedID', 'LmsUserID', 'BookID', 'Status', 'BorrowedDate', 'ReturnedDate', 'EventID')</em><a class="headerlink" href="#iot_api.BorrowedSchema.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="iot_api.getBook">
+<code class="descclassname">iot_api.</code><code class="descname">getBook</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#getBook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.getBook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="iot_api.getBookbyID">
+<code class="descclassname">iot_api.</code><code class="descname">getBookbyID</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#getBookbyID"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.getBookbyID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="iot_api.addBook">
+<code class="descclassname">iot_api.</code><code class="descname">addBook</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#addBook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.addBook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="iot_api.bookDelete">
+<code class="descclassname">iot_api.</code><code class="descname">bookDelete</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iot_api.html#bookDelete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iot_api.bookDelete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="Flask_Site_and_Api.html" accesskey="U">Flask_Site_and_Api</a><img src="_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                iot_api module
+        </div>
+        <script type="text/javascript" charset="utf-8" src="_static/js/toc.js"></script>
+  </body>
+</html>

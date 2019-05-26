@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>FacialRecognition_Drive module &#8212; LMS 0.0.3 documentation</title>
+    <link rel="stylesheet" href="_static/css/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <meta name="generator" content="Sphinx/ADC Theme by Mirounga www.mirounga.fr"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="LMS 0.0.3 documentation" href="index.html" />
+    <link rel="up" title="Flask_Site_and_Api" href="Flask_Site_and_Api.html" />
+    <link rel="next" title="iot_api module" href="iot_api.html" />
+    <link rel="prev" title="Flask_Site_and_Api" href="Flask_Site_and_Api.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/css/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+    <p>LMS 0.0.3 documentation</p>
+</div>
+<div id="header">
+    <div id="title"><h1>FacialRecognition_Drive module</h1></div>
+    <ul id="headerButtons">
+        <li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+        <li id="page_buttons">
+            <div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+            <div class="headerButton"><a href="py-modindex.html" title="Python Module Index" >modules</a></div>
+            <div class="headerButton"><a href="iot_api.html" title="iot_api module" accesskey="N">next</a></div>
+            <div class="headerButton"><a href="Flask_Site_and_Api.html" title="Flask_Site_and_Api" accesskey="P">previous</a></div>
+        </li>
+    </ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+        <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+        <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="MasterPy.html">Master_Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReceptionPy.html">Reception_Pi</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Flask_Site_and_Api.html">Flask_Site_and_Api</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="creation.html">creation module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">FacialRecognition_Drive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iot_api.html">iot_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iot_main.html">iot_main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_api.html">site_api module</a></li>
+</ul>
+</li>
+</ul>
+
+      <h3>This Page</h3>
+      <ul class="this-page-menu">
+        <li><a href="_sources/FacialRecognition_Drive.rst.txt"
+               rel="nofollow">Show Source</a></li>
+      </ul>
+    <div id="searchbox" style="display: none">
+        <form class="search" action="search.html" method="get">
+                        <div class="search-wrapper">
+                        <input type="submit" value="" class="search-left"/>
+                        <input class="prettysearch" type="text" name="q" size="18" title="Enter search terms or a module, class or function name."/>
+                        <span class="search-right">&nbsp;</span>
+                        </div>
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-FacialRecognition_Drive">
+<span id="facialrecognition-drive-module"></span><h1>FacialRecognition_Drive module<a class="headerlink" href="#module-FacialRecognition_Drive" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="FacialRecognition_Drive.FaceRecognition_Drive">
+<em class="property">class </em><code class="descclassname">FacialRecognition_Drive.</code><code class="descname">FaceRecognition_Drive</code><a class="reference internal" href="_modules/FacialRecognition_Drive.html#FaceRecognition_Drive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FacialRecognition_Drive.FaceRecognition_Drive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class comprises of functionalities to recognise a persons face 
+and helps registering and log into the system using facial recognition techniques.</p>
+<dl class="simple">
+<dt>faceRecognation </dt><dd><p>Creates objects of FaceRecognition class.</p>
+</dd>
+<dt>db</dt><dd><p>Creates objects of UserDB class.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>face_Recognation()</dt><dd><p>Captures image using mounted camera and srecognises users face.</p>
+</dd>
+<dt>sendToDB(name)</dt><dd><p>Saves the captured image based user information in the database
+and matches based on the captured image.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="FacialRecognition_Drive.FaceRecognition_Drive.face_Recognation">
+<code class="descname">face_Recognation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/FacialRecognition_Drive.html#FaceRecognition_Drive.face_Recognation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FacialRecognition_Drive.FaceRecognition_Drive.face_Recognation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="FacialRecognition_Drive.FaceRecognition_Drive.sendToDB">
+<code class="descname">sendToDB</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/FacialRecognition_Drive.html#FaceRecognition_Drive.sendToDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FacialRecognition_Drive.FaceRecognition_Drive.sendToDB" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>name: str</dt><dd><p>takes in users name based on the captured image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2019, Group48.
+      Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.0.0+ <a href="https://github.com/mga-sphinx/sphinx_adc_theme">ADC Theme</a> .
+    (Revision )
+        </p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+        <div id="breadcrumbs">
+                <a href="Flask_Site_and_Api.html" accesskey="U">Flask_Site_and_Api</a><img src="_static/img/triangle_closed.png" height="9" width="9" alt="&gt;">
+                FacialRecognition_Drive module
+        </div>
+        <script type="text/javascript" charset="utf-8" src="_static/js/toc.js"></script>
+  </body>
+</html>
