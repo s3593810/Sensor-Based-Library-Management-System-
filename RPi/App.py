@@ -20,7 +20,8 @@ class App:
         of the Library Managment System consol application.
 
     """
-    def menu():
+
+    def menu(self):
         re = Receptionist()
         drive = FaceRecognition_Drive()
         receptionPi = ReceptionPi()
