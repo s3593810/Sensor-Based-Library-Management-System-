@@ -2,7 +2,7 @@
 from receptionist import Receptionist
 import sys
 from RPi import ReceptionPi
-from userDB import UserDB
+from UserDB import UserDB
 from FacialRecognition_Drive import FaceRecognition_Drive
 
 
@@ -20,7 +20,8 @@ class App:
         of the Library Managment System consol application.
 
     """
-    def menu():
+
+    def menu(self):
         re = Receptionist()
         drive = FaceRecognition_Drive()
         receptionPi = ReceptionPi()

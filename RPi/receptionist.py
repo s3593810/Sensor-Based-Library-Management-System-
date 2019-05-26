@@ -1,5 +1,6 @@
-from userDB import UserDB
-from user import User
+
+from UserDB import UserDB
+
 import getpass
 from security import Security
 import re
@@ -72,7 +73,6 @@ class Receptionist:
             if self.__valid.email_regex.match(email):
                 break
             print("you should enter a vaild email address")
-        user = User(username, password, firstname, lastname, email)
         self.__db.insert(username, password, firstname, lastname, email)
         self.__db.displayDB()
 
