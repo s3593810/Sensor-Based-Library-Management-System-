@@ -8,6 +8,26 @@ import subprocess
 
 
 class SpeechRecognition:
+    """
+    This class helps recognising users voice to run further Library 
+    functionalities.
+
+    Attributes
+    ---------
+    MIC_NAME: Str
+        Hard Coded to identify particular Mic device to take voice inputs.
+    
+    Methods
+    -------
+
+    main()
+        Takes in voice input to search based on the inputed voice.
+
+    getKeyToSearch()
+        Takes in voice input and runs it to check and convert in to speech using 
+        googles voice recognition feature and return it as key.
+
+    """
 
     MIC_NAME = "Microsoft® LifeCam Cinema(TM): USB Audio (hw:1,0)"
 
@@ -19,6 +39,7 @@ class SpeechRecognition:
         return key
 
     def getKeyToSearch(self):
+
         # To test searching without the microphone uncomment this line of code
         # return input("Enter the first name to search for: ")
 
