@@ -73,6 +73,11 @@ def bookdelete():
     
     return redirect(url_for('dashboard'))
 
+@app.route('/visualization',  methods = ['GET', 'POST'])
+def visual():
+    # Use REST API.
+    return render_template("visualization.html")
+
 
 
 if __name__ == "__main__":
