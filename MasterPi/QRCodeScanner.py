@@ -16,7 +16,17 @@ import cv2
 
 
 class QRCodeReader:
+    """
+    This class adds the functionality of QR code scanning from a book.
 
+    Methods
+    -------
+
+    readCode()
+        Lets master py act as a QR code scanner.
+        Turns on the camera and scans the code from the book.
+        Scans out the barcode from the book and decodes it to check with the system.
+    """
     def readCode(self):
         # initialize the video stream and allow the camera sensor to warm up
         print("Please scan the QR code")
