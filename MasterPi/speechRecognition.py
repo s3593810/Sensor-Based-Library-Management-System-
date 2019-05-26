@@ -6,7 +6,6 @@ import MySQLdb
 import subprocess
 
 
-
 class SpeechRecognition:
     """
     This class helps recognising users voice to run further Library 
@@ -29,7 +28,7 @@ class SpeechRecognition:
 
     """
 
-    MIC_NAME = "Microsoft® LifeCam Cinema(TM): USB Audio (hw:1,0)"
+    MIC_NAME = "Microsoft® LifeCam HD-3000: USB Audio (hw:1,0)"
 
     def main(self):
         key = self.getKeyToSearch()
