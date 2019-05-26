@@ -2,7 +2,7 @@
 from receptionist import Receptionist
 import sys
 from RPi import ReceptionPi
-from userDB import UserDB
+from UserDB import UserDB
 from FacialRecognition_Drive import FaceRecognition_Drive
 
 
