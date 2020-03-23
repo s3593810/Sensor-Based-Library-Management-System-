@@ -6,6 +6,11 @@ from flask_marshmallow import Marshmallow
 import os, requests, json
 from iot_api import api, db
 
+"""
+This iot_main class inegrates the cloud database with the api
+and helps geeting, posting and delating functions through api calls thus acts as 
+the server for the site.
+"""
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
