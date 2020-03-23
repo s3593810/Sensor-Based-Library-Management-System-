@@ -1,5 +1,5 @@
 # LMS
-PIoT Assignment2
+PIoT 
 
 This project is about creating a smart library system using Raspberrypi Model 3B device, along with webcamera.
 
